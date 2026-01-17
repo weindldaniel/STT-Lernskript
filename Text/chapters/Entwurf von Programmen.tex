@@ -1,0 +1,528 @@
+\newpage
+\section{Entwurf von Steuerungsprogrammen -- Statecharts}
+
+\subsection{Begriff und Ziele}
+
+Der Entwurf von Steuerungsprogrammen mithilfe von Statecharts
+ist eine modellbasierte Methode zur Beschreibung
+zustandsorientierter Systeme.
+Im Mittelpunkt steht die formale Darstellung von Zuständen,
+Übergängen und zugehörigen Aktionen.
+
+Ziel des Statechart-basierten Entwurfs ist es,
+komplexe Steuerungsabläufe:
+\begin{itemize}
+    \item übersichtlich darzustellen,
+    \item eindeutig zu spezifizieren,
+    \item systematisch zu strukturieren,
+    \item und fehlerarm zu implementieren.
+\end{itemize}
+
+Statecharts dienen dabei als \textbf{Entwurfsmodell}
+und sind unabhängig von der späteren Programmiersprache.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=3,width=\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=6,width=\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+\subsection{Kodierrichtlinien}
+
+Kodierrichtlinien legen verbindliche Regeln für die Struktur,
+Benennung und Umsetzung von Steuerungsprogrammen fest.
+Ziel ist es, Programme \textbf{lesbar, wartbar und erweiterbar}
+zu gestalten – unabhängig davon, wer sie erstellt oder später wartet.
+
+Wesentliche Inhalte von Kodierrichtlinien sind:
+\begin{itemize}
+    \item einheitliche Namenskonventionen für Variablen, Bausteine und Zustände
+    \item klare Strukturierung von Programmen und Funktionsbausteinen
+    \item konsequente Trennung von Ablauf, Logik und Peripherie
+    \item aussagekräftige Kommentare an relevanten Stellen
+\end{itemize}
+
+Die Einhaltung von Kodierrichtlinien reduziert Fehler,
+erleichtert die Fehlersuche und ist insbesondere
+bei größeren Projekten und Teamarbeit unverzichtbar.
+
+\subsection{Logikarten}
+
+Logikarten beschreiben,
+wie Ein- und Ausgangsgrößen in einer Steuerung
+miteinander verknüpft sind.
+Grundsätzlich unterscheidet man
+zwischen kombinatorischer und sequentieller Logik.
+In realen Anwendungen treten beide Logikarten gemeinsam auf.
+
+\subsubsection{Kombinatorische Logik}
+
+Bei der kombinatorischen Logik hängt das Ergebnis
+ausschließlich von den aktuellen Eingangsgrößen ab.
+Ein Zustands- oder Speicherbegriff existiert nicht.
+
+\paragraph{Resultat}
+\begin{itemize}
+    \item \textbf{Verknüpfungssteuerung}
+\end{itemize}
+
+\paragraph{Modellierung}
+\begin{itemize}
+    \item \textbf{Wahrheitstabelle}  
+    Vollständige Auflistung aller Eingangskombinationen
+    und der zugehörigen Ausgänge.
+
+    \item \textbf{Boolesche Logik / KV-Diagramm}  
+    Mathematische Beschreibung und Vereinfachung
+    logischer Zusammenhänge.
+\end{itemize}
+
+\subsubsection{Sequentielle Logik}
+
+Bei der sequentiellen Logik hängt das Ergebnis
+von den aktuellen Eingängen \emph{und}
+vom internen Zustand des Systems ab.
+Eine Speicherwirkung ist vorhanden.
+
+\paragraph{Resultat}
+\begin{itemize}
+    \item \textbf{Ablaufsteuerung}
+\end{itemize}
+
+\paragraph{Modellierung}
+\begin{itemize}
+    \item \textbf{Flussdiagramm}  
+    Lineare Ablaufdarstellung,
+    für komplexe Steuerungen jedoch nicht empfohlen.
+
+    \item \textbf{Zustandsautomat}  
+    Formale Beschreibung durch Zustände und Übergänge;
+    wird in einem eigenen Kapitel behandelt.
+\end{itemize}
+
+\subsubsection{Realität industrieller Steuerungen}
+
+In realen Anwendungen werden kombinatorische
+und sequentielle Logik nahezu immer gemeinsam eingesetzt.
+
+Typische Eigenschaften:
+\begin{itemize}
+    \item kombinatorische Logik für Freigaben und Verriegelungen
+    \item sequentielle Logik für Abläufe und Prozessschritte
+\end{itemize}
+
+Diese Mischung erfordert eine
+\textbf{klare Softwarearchitektur},
+um Übersichtlichkeit, Wartbarkeit
+und Erweiterbarkeit sicherzustellen.
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Verknüpfungssteuerung entsteht aus kombinatorischer Logik,
+Ablaufsteuerung aus sequentieller Logik.}
+
+
+
+\subsection{Auswahl der Modellierungstechnik}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=11,width=\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+
+\subsection{Modellierungstechniken}
+
+Zur Beschreibung und zum Entwurf diskreter Steuerungen
+stehen unterschiedliche Modellierungstechniken zur Verfügung.
+Die Auswahl der Technik hängt davon ab,
+ob das System \textbf{kombinatorisch} oder \textbf{sequentiell}
+arbeitet.
+
+
+%##############
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    box/.style={
+        draw,
+        rectangle,
+        rounded corners,
+        align=center,
+        minimum width=5.2cm,
+        minimum height=1.1cm
+    },
+    node distance=1.4cm
+]
+
+% Hauptknoten
+\node[box, thick] (logic) {\textbf{Modellierungstechniken}};
+
+% Kombinatorisch
+\node[box, below left=of logic, xshift=-1.2cm] (komb) {\textbf{Kombinatorische Logik}\\
+Verknüpfungssteuerung};
+
+\node[box, below=of komb] (wt) {Wahrheitstabelle\\
+RS-Tabelle};
+
+\node[box, below=of wt] (bool) {Boolesche Logik\\
+KV-Diagramm};
+
+\node[box, below=of bool] (wz1) {Weg-/Zeitdiagramm};
+
+% Sequentiell
+\node[box, below right=of logic, xshift=1.2cm] (seq) {\textbf{Sequentielle Logik}\\
+Ablaufsteuerung};
+
+\node[box, below=of seq] (wz2) {Weg-/Zeitdiagramm};
+
+\node[box, below=of wz2] (flow) {Flussdiagramm\\
+(nicht empfohlen)};
+
+\node[box, below=of flow] (state) {Zustandsautomat\\
+Statecharts};
+
+% Realität
+\node[box, below=of wt, xshift=7.5cm, thick] (real) {\textbf{Reale Steuerungen}\\
+Mischung aus beidem\\
+$\Rightarrow$ Softwarearchitektur};
+
+% Pfeile
+\draw[->] (logic) -- (komb);
+\draw[->] (logic) -- (seq);
+
+\draw[->] (komb) -- (wt);
+\draw[->] (wt) -- (bool);
+\draw[->] (bool) -- (wz1);
+
+\draw[->] (seq) -- (wz2);
+\draw[->] (wz2) -- (flow);
+\draw[->] (flow) -- (state);
+
+\draw[->, thick] (wz1.east) -- (real.west);
+\draw[->, thick] (state.west) -- (real.east);
+
+\end{tikzpicture}%
+}
+\end{center}
+
+\subsubsection{Kombinatorische Logik}
+
+Bei der kombinatorischen Logik hängen die Ausgänge
+ausschließlich von den aktuellen Eingängen ab.
+Es existiert kein Zustands- oder Speicherbegriff.
+
+Typische Modellierungstechniken sind:
+\begin{itemize}
+    \item \textbf{Wertetabellen / RS-Tabellen}  
+    Systematische Auflistung aller möglichen Eingangskombinationen
+    und der zugehörigen Ausgänge.
+
+    \item \textbf{Weg-Zeit-Diagramme}  
+    Darstellung des Signalverlaufs über der Zeit,
+    ohne Berücksichtigung interner Zustände.
+
+    \item \textbf{Stromlaufpläne}  
+    Grafische Darstellung logischer Verknüpfungen
+    mithilfe elektrischer Schaltelemente,
+    insbesondere bei bestehenden oder klassischen Anlagen.
+\end{itemize}
+
+\subsubsection{Sequentielle Logik}
+
+Bei der sequentiellen Logik hängt das Systemverhalten
+von den aktuellen Eingängen \emph{und} vom internen Zustand ab.
+Eine Speicherwirkung ist vorhanden.
+
+Geeignete Modellierungstechniken sind:
+\begin{itemize}
+    \item \textbf{Weg-Zeit-Diagramme}  
+    Darstellung zeitlicher Abfolgen unter Berücksichtigung
+    von Zustandswechseln.
+
+    \item \textbf{R\&I-Fließschema}  
+    Darstellung von verfahrenstechnischen Abläufen
+    mit Zustands- und Signalbezug,
+    insbesondere in der Prozessindustrie.
+
+    \item \textbf{Zustandsbasierte Modellierung}  
+    Beschreibung des Systems durch Zustände,
+    Übergänge und Aktionen,
+    z.\,B. mithilfe von Zustandsdiagrammen oder Statecharts.
+\end{itemize}
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Kombinatorische Modelle kennen keinen Zustand,
+sequentielle Modelle benötigen einen Zustandsbegriff.}
+
+In den nächsten Kapiteln werden einige Techniken näher betrachtet.
+
+
+\subsection{RS-Wertetabelle}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=15,width=\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=16,width=0.6\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=17,width=\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+\subsection{Funktionsdiagramme}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=21,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=22,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+Sie bilden den Übergang zu Statecharts.
+
+\subsection{Weg-/Zeitdiagramm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=25,width=\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=26,width=\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Zustandsautomaten - Statecharts}
+
+Statecharts sind eine Erweiterung klassischer Zustandsdiagramme
+und wurden von David Harel eingeführt.
+Sie ermöglichen die strukturierte Beschreibung
+komplexer zustandsbasierter Systeme.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/Zustandsgraphen.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=43,width=\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+
+
+\subsubsection{Vorgehensweise}
+\begin{enumerate}
+  \item Zustände identifizieren
+  \item Aktionen in den jeweiligen Zuständen identifizieren
+  \item Übergänge und Transitions identifizieren
+  \item Start
+\end{enumerate}
+
+\subsubsection{States}
+
+Ein \textbf{State} (Zustand) beschreibt den Zustand,
+in dem sich ein Objekt oder System
+zu einem bestimmten Zeitpunkt befindet.
+
+Ein Zustand repräsentiert eine stabile Phase,
+in der das System definierte Eigenschaften besitzt
+und auf Ereignisse wartet.
+
+\subsubsection{Transitions}
+
+\textbf{Transitions} beschreiben den Übergang
+von einem Zustand in einen anderen.
+
+Ein Übergang legt fest,
+\begin{itemize}
+    \item von welchem Zustand ausgegangen wird,
+    \item in welchen Zustand gewechselt wird,
+    \item unter welchen Bedingungen der Wechsel erfolgt.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=46,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=47,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+\subsubsection{Events}
+
+\textbf{Events} sind Ereignisse,
+die einen Zustandsübergang auslösen können.
+
+Sie bestimmen,
+welcher Übergang von einem Zustand aus
+ausgeführt wird,
+wenn mehrere Übergänge möglich sind.
+
+Typische Events sind:
+\begin{itemize}
+    \item Signaländerungen
+    \item Zeitereignisse
+    \item Benutzeraktionen
+\end{itemize}
+
+\subsubsection{Actions}
+
+\textbf{Actions} sind Aktionen,
+die beim Übergang zwischen Zuständen
+oder innerhalb eines Zustands ausgeführt werden.
+
+Sie sind optional
+und dienen der Ausführung konkreter Operationen,
+z.\,B. Setzen von Ausgängen oder Initialisieren von Variablen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=48,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+
+\subsubsection{Beispiel}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=49,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=50,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+\subsubsection{Übergang zu Harel}
+Die Anzahl der Zustände und Transitionen wächst bei komplexen Steuerungsaufgaben sehr schnell stark an, was zu unübersichtlichen und schwer wartbaren Modellen führt. Dieses Problem tritt nicht nur bei Zustandsdiagrammen, sondern in ähnlicher Weise auch bei Flussdiagrammen auf. Klassische Mealy- und Moore-Automaten bieten hierfür keine wirklich geeignete Lösung, da sie die Modellierungsmöglichkeiten stark einschränken. Mealy-Automaten erlauben die Ausführung von Aktionen ausschließlich während einer aktiven Transition, während Moore-Automaten Aktionen nur beim Eintritt in einen Zustand zulassen. Für die Anforderungen der Steuerungstechnik sind diese Einschränkungen in der Praxis meist ungeeignet. Aus diesem Grund werden in UML und in der modernen Steuerungstechnik erweiterte Zustandsmodelle eingesetzt, insbesondere die sogenannten Harel-Automaten, die eine strukturiertere und leistungsfähigere Modellierung komplexer Abläufe ermöglichen.
+
+\subsubsection{Harel-Automat}
+
+Der Harel-Automat erweitert klassische endliche Automaten
+um zusätzliche Strukturierungsmöglichkeiten.
+
+Er unterstützt:
+\begin{itemize}
+    \item Hierarchie
+    \item Parallelität
+    \item Synchronisation
+\end{itemize}
+
+Dadurch lassen sich komplexe Steuerungen
+übersichtlich und modular modellieren.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=52,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=53,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=54,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+
+\subsubsection{Super States}
+
+Super States (übergeordnete Zustände)
+fassen mehrere Einzelzustände zusammen.
+
+Vorteile:
+\begin{itemize}
+    \item Reduktion der Komplexität
+    \item gemeinsame Übergänge
+    \item bessere Lesbarkeit
+\end{itemize}
+
+Super States ermöglichen hierarchische Statecharts.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=55,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=56,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=57,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+
+
+
+
+\subsubsection{Synchronisations Messages}
+
+Synchronisationsnachrichten dienen der Koordination
+paralleler Zustände oder Teilautomaten.
+
+Eigenschaften:
+\begin{itemize}
+    \item ereignisbasiert
+    \item entkoppeln Zustandsbereiche
+    \item ermöglichen parallele Abläufe
+\end{itemize}
+
+Sie sind insbesondere bei verteilten oder modularen Systemen relevant.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=60,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+
+\subsubsection{Implementierung}
+
+Statecharts werden nicht direkt ausgeführt,
+sondern in eine konkrete Implementierung überführt.
+
+Typische Umsetzungen:
+\begin{itemize}
+    \item SFC (Ablaufsprache)
+    \item Zustandsvariable mit CASE-Struktur
+    \item Funktionsbausteine mit Zustandslogik
+\end{itemize}
+
+Wichtig ist die saubere Abbildung:
+\begin{itemize}
+    \item der Zustände,
+    \item der Übergangsbedingungen,
+    \item und der Aktionen.
+\end{itemize}
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Statecharts sind Entwurfsmodelle,
+keine Programmiersprachen.}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=61,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=62,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=63,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=64,width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Data/sttvo-k06-Entwurf von Steuerungsprogrammen-4v1-Folien_gesamt.pdf}
+\end{figure}
+
+

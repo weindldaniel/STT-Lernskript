@@ -1,0 +1,150 @@
+\newpage
+\subsection{AS}
+
+\subsubsection{Grundprinzip}
+
+Die Ablaufsprache (AS, engl. Sequential Function Chart – SFC)
+ist eine grafische Programmiersprache nach IEC~61131-3
+zur Beschreibung \textbf{sequentieller Abläufe}.
+Sie eignet sich besonders zur Darstellung von Ablaufsteuerungen
+mit klar definierten Zuständen und Übergängen.
+
+SFC basiert auf dem Zustandsmodell und trennt explizit zwischen:
+\begin{itemize}
+    \item Schritten (Zustände)
+    \item Transitionen (Übergangsbedingungen)
+    \item Aktionen (auszuführende Operationen)
+\end{itemize}
+
+\subsubsection{Schritte}
+
+Ein Schritt repräsentiert einen Zustand des Steuerungsablaufs.
+Zu jedem Zeitpunkt ist mindestens ein Schritt aktiv.
+
+\begin{itemize}
+    \item Schritte werden als Rechtecke dargestellt
+    \item Aktive Schritte sind logisch TRUE
+    \item Ein Initialschritt ist beim Start aktiv
+\end{itemize}
+
+Ein Schritt selbst führt keine Logik aus,
+sondern aktiviert zugeordnete Aktionen.
+
+\subsubsection{Transitionen}
+
+Transitionen beschreiben die Bedingung für den Übergang
+von einem oder mehreren Schritten zu einem oder mehreren Folgeschritten.
+
+\begin{itemize}
+    \item Transitionen werden logisch ausgewertet
+    \item Sie besitzen ausschließlich BOOL-Ergebnisse
+    \item Ein Übergang erfolgt nur, wenn alle vorgeschalteten Schritte aktiv sind
+\end{itemize}
+
+\medskip
+\textbf{Regel:}  
+Ein Schritt wird verlassen, wenn die zugehörige Transition TRUE wird.
+
+\subsubsection{Aktivierungs- und Deaktivierungsregeln}
+
+\begin{itemize}
+    \item Wird eine Transition TRUE, werden die vorherigen Schritte deaktiviert
+    \item Die nachfolgenden Schritte werden gleichzeitig aktiviert
+    \item Mehrere Schritte können parallel aktiv sein
+\end{itemize}
+
+SFC erlaubt damit auch parallele Abläufe.
+
+\subsubsection{Aktionen}
+
+Aktionen sind die eigentlichen Programmanweisungen
+und werden einem Schritt zugeordnet.
+Sie können in KOP, FBS, ST oder AWL implementiert sein.
+
+Eine Aktion wird ausgeführt, solange ihr Schritt aktiv ist
+und die Aktionsbedingung erfüllt ist.
+
+\subsubsection{Aktionsblöcke}
+
+Aktionen werden in Aktionsblöcken dargestellt.
+Ein Aktionsblock besteht aus:
+\begin{itemize}
+    \item einem Bestimmungszeichen (Qualifier)
+    \item optional einer Zeitangabe
+    \item dem Aktionsnamen oder einer BOOL-Variablen
+\end{itemize}
+
+\subsubsection{Aktionsqualifier}
+
+Der Qualifier bestimmt das zeitliche Verhalten einer Aktion.
+
+\begin{itemize}
+    \item \textbf{N} (Normal):  
+    Aktion ist aktiv, solange der Schritt aktiv ist
+    
+    \item \textbf{S} (Set):  
+    Aktion wird beim Aktivieren des Schrittes gesetzt
+    und bleibt aktiv, bis sie explizit zurückgesetzt wird
+    
+    \item \textbf{R} (Reset):  
+    Setzt eine zuvor gesetzte Aktion zurück
+    
+    \item \textbf{L} (Limit):  
+    Aktion ist nur für eine begrenzte Zeit aktiv
+    
+    \item \textbf{D} (Delay):  
+    Aktion wird zeitverzögert aktiviert
+\end{itemize}
+
+Zeitqualifier verwenden entweder konstante Zeiten
+oder Variablen vom Typ \texttt{TIME}.
+
+\subsubsection{Parallele und alternative Abläufe}
+
+SFC unterstützt:
+\begin{itemize}
+    \item alternative Verzweigungen (ODER-Verzweigung)
+    \item parallele Verzweigungen (UND-Verzweigung)
+\end{itemize}
+
+Bei parallelen Abläufen müssen alle parallelen Zweige
+abgeschlossen sein, bevor der Ablauf fortgesetzt wird.
+
+\subsubsection{Einbindung in das SPS-Zyklusmodell}
+
+\begin{itemize}
+    \item Schritte und Transitionen werden zyklisch ausgewertet
+    \item Aktionen werden innerhalb des SPS-Zyklus ausgeführt
+    \item Zeitfunktionen basieren auf der Zykluszeit
+\end{itemize}
+
+SFC selbst beschreibt nur die Ablaufstruktur,
+nicht die konkrete Ausführungslogik der Aktionen.
+
+\subsubsection{Vor- und Nachteile von SFC}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item Sehr übersichtliche Darstellung komplexer Abläufe
+    \item Klare Trennung von Zustand und Aktion
+    \item Sehr gut geeignet für Ablaufsteuerungen
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Für reine Logik ungeeignet
+    \item Zusätzlicher Implementierungsaufwand für Aktionen
+\end{itemize}
+
+\subsubsection{Einordnung}
+
+SFC eignet sich besonders für:
+\begin{itemize}
+    \item Schrittketten
+    \item Ablauf- und Prozesssteuerungen
+    \item Strukturierung komplexer Programme
+\end{itemize}
+
+In der Praxis wird SFC häufig mit KOP, FBS oder ST kombiniert,
+wobei SFC die Ablaufstruktur vorgibt
+und die Aktionen in anderen Sprachen implementiert werden.

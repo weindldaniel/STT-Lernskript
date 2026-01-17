@@ -1,0 +1,299 @@
+\newpage
+\section{SPS-Konfiguration und Programmierung}
+
+\subsection{Programmierung nach Norm}
+
+Die Programmierung speicherprogrammierbarer Steuerungen erfolgt
+nach der internationalen Norm \textbf{IEC~61131-3}.
+Diese Norm definiert sowohl die zulässigen Programmiersprachen
+als auch das zugrunde liegende Softwaremodell.
+
+Ziel der Norm ist:
+\begin{itemize}
+    \item herstellerunabhängige Programmierung
+    \item strukturierte und wartbare Software
+    \item klare Trennung von Konfiguration und Programm
+\end{itemize}
+
+Die IEC~61131-3 unterscheidet fünf Programmiersprachen:
+\begin{itemize}
+    \item Anweisungsliste (AWL / IL)
+    \item Strukturierter Text (ST)
+    \item Kontaktplan (KOP / LD)
+    \item Funktionsbausteinsprache (FBS / FBD)
+    \item Ablaufsprache (SFC)
+\end{itemize}
+
+Die Norm legt außerdem fest,
+wie Programme organisiert, aufgerufen und ausgeführt werden.
+
+---
+
+\subsection{Konfigurationselemente}
+
+Die Software einer SPS ist hierarchisch aufgebaut.
+Diese Struktur ist unabhängig von der konkreten Hardware
+und wird als Konfiguration bezeichnet.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/KonfigElemente.png}
+\end{figure}
+
+
+\subsubsection{Konfiguration}
+
+Die Konfiguration beschreibt ein vollständiges SPS-System.
+Sie bildet die oberste Ebene des Softwaremodells.
+
+Eine Konfiguration umfasst:
+\begin{itemize}
+    \item eine oder mehrere Ressourcen
+    \item globale Variablen
+    \item Kommunikationsbeziehungen
+\end{itemize}
+
+\subsubsection{Ressource}
+
+Eine Ressource stellt eine logische Verarbeitungseinheit dar,
+meist eine CPU.
+
+Jede Ressource enthält:
+\begin{itemize}
+    \item Tasks
+    \item zugeordnete Programme
+\end{itemize}
+
+\subsubsection{Task}
+
+Tasks steuern die zeitliche Ausführung der Programme.
+
+Sie legen fest:
+\begin{itemize}
+    \item Ausführungsart (zyklisch, ereignisgesteuert)
+    \item Zykluszeit
+    \item Priorität
+\end{itemize}
+
+Tasks enthalten selbst keine Programmlogik.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/RessourceTask.png}
+\end{figure}
+
+
+
+\subsection{Bausteine (POE – Program Organisation Elements)}
+
+Die eigentliche Programmlogik wird in
+\textbf{Programm-Organisationseinheiten (POE)}
+realisiert.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/POE.png}
+\end{figure}
+
+Die IEC~61131-3 unterscheidet drei POE-Typen.
+
+\subsubsection{Programme}
+
+Programme werden einer Task zugeordnet
+und zyklisch oder ereignisgesteuert ausgeführt.
+
+\begin{itemize}
+    \item Kein eigenes Gedächtnis über mehrere Aufrufe
+    \item Einstiegspunkt der Programmausführung
+\end{itemize}
+
+\subsubsection{Funktionsbausteine}
+
+Funktionsbausteine besitzen ein internes Gedächtnis
+und müssen als Instanz verwendet werden.
+
+\begin{itemize}
+    \item Speicherung von Zuständen
+    \item Wiederverwendbar
+    \item Geeignet für zustandsbehaftete Funktionen
+\end{itemize}
+
+\subsubsection{Funktionen}
+
+Funktionen besitzen kein Gedächtnis.
+Bei gleichen Eingängen liefern sie immer gleiche Ausgänge.
+
+\begin{itemize}
+    \item Keine Speicherwirkung
+    \item Ideal für Berechnungen und logische Verknüpfungen
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/POE2.png}
+\end{figure}
+
+
+\subsubsection{Aufrufregeln für POE}
+
+\begin{itemize}
+    \item Programme dürfen Funktionen und Funktionsbausteine aufrufen
+    \item Funktionsbausteine dürfen Funktionen und Funktionsbausteine aufrufen
+    \item Funktionen dürfen nur Funktionen aufrufen
+    \item Rekursive Aufrufe sind nicht erlaubt
+\end{itemize}
+
+\subsection{Datentypen}
+
+Datentypen legen fest,
+welche Werte eine Variable annehmen kann
+und wie diese interpretiert werden.
+
+\subsubsection{Elementare Datentypen}
+
+\begin{itemize}
+    \item BOOL
+    \item INT, DINT
+    \item REAL
+    \item TIME
+\end{itemize}
+
+\subsubsection{Abgeleitete und zusammengesetzte Datentypen}
+
+\begin{itemize}
+    \item ARRAY
+    \item STRUCT
+    \item ENUM
+\end{itemize}
+
+Diese Datentypen ermöglichen
+strukturierte und übersichtliche Programme.
+
+\subsubsection{Typkonversion}
+
+Bei der Verarbeitung unterschiedlicher Datentypen
+sind explizite Typumwandlungen erforderlich.
+
+Beispiel:
+\begin{verbatim}
+r := INT_TO_REAL(i);
+\end{verbatim}
+
+---
+
+\subsection{Variablen}
+
+Variablen repräsentieren Speicherplätze
+für Daten innerhalb eines SPS-Programms.
+
+\subsubsection{Lokale Variablen}
+
+\begin{itemize}
+    \item Nur innerhalb einer POE sichtbar
+    \item Fördern Modularität
+    \item Keine Seiteneffekte
+\end{itemize}
+
+\subsubsection{Globale Variablen}
+
+\begin{itemize}
+    \item Projektweit sichtbar
+    \item Ermöglichen Kommunikation zwischen Programmen
+    \item Erhöhen die Kopplung
+\end{itemize}
+
+\subsubsection{Initialisierung von Variablen}
+
+Variablen können beim Start der SPS
+oder beim Neustart einer Ressource
+initialisiert werden.
+
+Initialwerte sind insbesondere für:
+\begin{itemize}
+    \item Zustandsvariablen
+    \item Zähler
+    \item Merker
+\end{itemize}
+relevant.
+
+\subsection{Generische Datentypen}
+
+\subsubsection{Begriff}
+
+Generische Datentypen sind \textbf{platzhalterartige Datentypen},
+die nicht auf einen konkreten elementaren Datentyp festgelegt sind.
+Sie werden verwendet, um Funktionen und Funktionsbausteine
+\textbf{datentypunabhängig} zu definieren.
+
+Der konkrete Datentyp wird erst beim Aufruf
+durch die tatsächlich übergebenen Variablen festgelegt.
+
+\subsubsection{Motivation und Zweck}
+
+Generische Datentypen dienen:
+\begin{itemize}
+    \item der Wiederverwendbarkeit von Bausteinen
+    \item der Reduktion von mehrfach identischem Code
+    \item der allgemeinen Beschreibung von Operationen
+\end{itemize}
+
+Typische Beispiele sind Vergleichs- oder logische Funktionen,
+die mit unterschiedlichen Datentypen arbeiten sollen.
+
+\subsubsection{Generische Datentypklassen}
+
+Die IEC~61131-3 fasst generische Datentypen
+in sogenannte \textbf{Typklassen} zusammen.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/GenerischeDatentypen.png}
+\end{figure}
+
+
+\subsubsection{Beispiel einer generischen Funktion}
+
+\begin{verbatim}
+FUNCTION MAX : ANY_NUM
+VAR_INPUT
+    a : ANY_NUM;
+    b : ANY_NUM;
+END_VAR
+\end{verbatim}
+
+
+\subsection{Variablen}
+\subsubsection{Deklaration}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/Deklaration.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/Deklaration2.png}
+\end{figure}
+
+\subsubsection{Globale Variablen}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/GlobaleVariablen.png}
+\end{figure}
+
+
+
+\subsection{Zusammenfassung}
+
+Die Konfiguration und Programmierung nach IEC~61131-3
+trennt klar zwischen Struktur, Ablauf und Logik.
+Durch Konfigurationselemente, POEs, Datentypen und Variablen
+entstehen strukturierte, wartbare und normkonforme
+Steuerungsprogramme.
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Die Norm legt nicht fest, was programmiert wird,
+sondern wie Programme strukturiert sind.}

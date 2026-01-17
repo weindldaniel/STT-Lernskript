@@ -1,0 +1,99 @@
+% -------------------------------------------------
+% Schrift- und Zeichenkodierung (sehr früh laden!)
+% -------------------------------------------------
+\usepackage[T1]{fontenc}        % Korrekte Silbentrennung und Umlaute im PDF
+\usepackage[utf8]{inputenc}     % UTF-8 Eingabekodierung (ä, ö, ü, ß)
+\usepackage[T1]{fontenc}        % (DOPPELT) – bleibt erhalten wie gefordert
+\usepackage[utf8]{inputenc}     % (DOPPELT) – bleibt erhalten wie gefordert
+
+% -------------------------------------------------
+% Sprachunterstützung
+% -------------------------------------------------
+\usepackage[english,ngerman,naustrian]{babel} % Mehrsprachigkeit
+\usepackage[ngerman]{babel}                   % (DOPPELT) – Deutsch priorisiert
+
+% -------------------------------------------------
+% Mathematik
+% -------------------------------------------------
+\usepackage{amsmath, amssymb}   % Erweiterte mathematische Umgebungen & Symbole
+\usepackage{amsmath, amssymb}   % (DOPPELT) – bleibt erhalten
+
+% -------------------------------------------------
+% Seitenlayout
+% -------------------------------------------------
+\usepackage{geometry}           % Seitenränder und Papierformat
+\geometry{a4paper, margin=2.5cm}
+\usepackage{geometry}           % (DOPPELT) – bleibt erhalten
+
+% -------------------------------------------------
+% Grafiken und Float-Handling
+% -------------------------------------------------
+\usepackage{graphicx}           % Einbinden von Bildern
+\usepackage{graphicx}           % (DOPPELT)
+\graphicspath{{../graphics/}}   % Standardpfad für Grafiken
+\usepackage{float}              % Erzwingt Platzierung von Abbildungen (H)
+\usepackage{caption}            % Kontrolle über Bild- und Tabellenbeschriftungen
+\usepackage{pdfpages}           % Einbinden kompletter PDF-Seiten
+
+% -------------------------------------------------
+% Abstände und Formatierung
+% -------------------------------------------------
+\usepackage{setspace}           % Zeilenabstände (z. B. onehalfspacing)
+
+% -------------------------------------------------
+% Hyperlinks (immer eher spät laden!)
+% -------------------------------------------------
+\usepackage{hyperref}           % Klickbare Links, Referenzen, TOC
+\usepackage{hyperref}           % (DOPPELT)
+
+% -------------------------------------------------
+% Aufzählungen
+% -------------------------------------------------
+\usepackage{enumitem}           % Kontrolle über itemize/enumerate
+
+% -------------------------------------------------
+% TikZ – Grafiken & Diagramme
+% -------------------------------------------------
+\usepackage{tikz}               % Zeichnungen, Diagramme, Strukturen
+\usepackage{tikz}               % (DOPPELT)
+\usetikzlibrary{positioning}    % Relative Positionierung von Knoten
+\usetikzlibrary{positioning,calc} % (DOPPELT + Rechenoperationen)
+
+% -------------------------------------------------
+% Listings – Quellcode
+% -------------------------------------------------
+\usepackage{listings}           % Darstellung von Code
+\usepackage{xcolor}             % Farben für Syntax-Highlighting
+
+\lstset{
+    inputencoding=utf8,
+    extendedchars=true           % Sonderzeichen im Code
+}
+
+\lstdefinestyle{pythonstyle}{
+    language=Python,             % Python-Syntax
+    basicstyle=\ttfamily\small,  % Monospace-Schrift
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numbers=left,                % Zeilennummern
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    tabsize=4,
+    captionpos=b
+}
+
+% -------------------------------------------------
+% Literaturverwaltung
+% -------------------------------------------------
+\usepackage[
+    backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}                     % Moderne Literaturverwaltung
+\usepackage{csquotes}           % Korrekte Anführungszeichen (wichtig für biblatex)
+\addbibresource{bibliography.bib}

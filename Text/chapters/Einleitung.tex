@@ -1,0 +1,567 @@
+\section{Einleitung}
+
+\subsection{Einordnung der Steuerungstechnik}
+
+Die Steuerungstechnik ist eine Teildisziplin der Automatisierungstechnik und beschäftigt sich
+mit dem gezielten Beeinflussen technischer Prozesse durch vorgegebene Vorschriften,
+Algorithmen oder Gesetzmäßigkeiten.
+Sie umfasst den \textbf{Entwurf}, die \textbf{Realisierung}, das \textbf{Testen},
+die \textbf{Inbetriebnahme} sowie die \textbf{Wartung} von Steuerungssystemen.
+
+Ein technischer Prozess ist ein Vorgang zur \textbf{Umformung}, \textbf{Speicherung}
+oder zum \textbf{Transport} von Material, Energie oder Information.
+Der Zustand eines Prozesses wird durch sogenannte \emph{Zustandsgrößen} beschrieben,
+die technisch erfassbar und beeinflussbar sind.
+
+Die Automatisierungstechnik gliedert sich unter anderem in:
+\begin{itemize}
+    \item Sensorik (Informationsgewinnung)
+    \item Informationsverarbeitung (z.\,B. SPS, Industrie-PC)
+    \item Aktorik (Informationsumsetzung)
+    \item Mensch-Maschine-Schnittstelle (Visualisierung, Bedienung)
+\end{itemize}
+
+\subsection{Steuern und Regeln}
+
+\paragraph{Steuern}
+Unter Steuern versteht man einen Vorgang, bei dem Eingangsgrößen
+Ausgangsgrößen eines Systems beeinflussen, \textbf{ohne dass die Ausgangsgrößen
+rückgeführt und fortlaufend verglichen werden}.
+Kennzeichnend ist der \textbf{offene Wirkungsablauf}.
+
+Die Steuerungstechnik ist die gezielte Anwendung von Steuerungsmechanismen
+(Vorschriften, Algorithmen, Gesetzmäßigkeiten) unter Zuhilfenahme der verfügbaren
+technischen Mittel zur zielgerichteten Erfüllung von Aufgaben in Prozessen.
+
+\paragraph{Regeln}
+Beim Regeln wird eine Regelgröße kontinuierlich erfasst,
+mit einer Führungsgröße verglichen und in Richtung dieser Führungsgröße beeinflusst.
+Kennzeichnend ist der \textbf{geschlossene Wirkungsablauf (Rückkopplung)}.
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Steuern arbeitet ohne Rückführung, Regeln immer mit Rückführung.}
+
+\subsection{Offene und geschlossene Steuerungen}
+
+\begin{itemize}
+    \item \textbf{Offene Steuerung}:  
+    Keine Rückmeldung aus dem Prozess.  
+    Beispiel: Zeitgesteuerte Ampel.
+    
+    \item \textbf{Geschlossene Steuerung}:  
+    Rückmeldung beeinflusst den Steuerungsablauf, jedoch nicht kontinuierlich.  
+    Beispiel: Abschaltung über Endschalter.
+    
+    \item \textbf{Regelung}:  
+    Kontinuierliche Rückführung und Korrektur.  
+    Beispiel: Drehzahlregelung eines Motors.
+\end{itemize}
+
+\subsection{Grundstruktur eines Steuerungssystems}
+
+Ein Steuerungssystem besteht grundsätzlich aus:
+\begin{itemize}
+    \item Führungsgrößen (z.\,B. Start, Stop, Sollwerte)
+    \item Steuereinrichtung (z.\,B. SPS)
+    \item Steuerstrecke (technischer Prozess)
+    \item Stellgrößen (Ausgangsgrößen der Steuerung)
+    \item Meldegrößen (Rückmeldungen, Anzeigen)
+    \item Störgrößen (unerwünschte Einflüsse)
+\end{itemize}
+
+\subsection{Klassifikation von Steuerungen}
+
+\subsubsection{Nach Informationsdarstellung}
+
+\begin{itemize}
+    \item \textbf{Analoge Steuerungen}:  
+    Stetige Signalverarbeitung (z.\,B. Spannungen, Ströme)
+    
+    \item \textbf{Digitale Steuerungen}:  
+    Verarbeitung von Zahlenwerten und Codes
+    
+    \item \textbf{Binäre Steuerungen}:  
+    Verarbeitung logischer Zustände (TRUE/FALSE)
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/BinäreSignalverarbeitung.png}
+\end{figure}
+
+\subsubsection{Nach Art der Signalverarbeitung}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/ArtenSignalverarbeitung.png}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Synchrone Steuerungen}:  
+    Abtastung und Verarbeitung im festen Zeitraster
+    
+    \item \textbf{Asynchrone Steuerungen}:  
+    Ereignisgesteuerte Verarbeitung
+    
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/SynchronAsynchron.png}
+\end{figure}
+
+    \item \textbf{Verknüpfungssteuerungen}:  
+    Ausgang hängt nur vom aktuellen Eingang ab
+    
+    \item \textbf{Ablaufsteuerungen}:  
+    Ausgang hängt von Eingang \emph{und} Zustand ab
+\end{itemize}
+
+\subsection{Kategorien von Steuerungen}
+
+Die Realisierung einer Steuerung beschreibt,
+\textbf{mit welchen technischen Mitteln}
+die Steuerungsfunktion umgesetzt wird.
+Man unterscheidet mehrere grundlegende Realisierungsarten,
+die historisch und technisch unterschiedliche Eigenschaften besitzen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/UnterscheidungEnergieübertragung.png}
+\end{figure}
+
+
+\subsubsection{Mechanische Steuerungen}
+
+Mechanische Steuerungen realisieren Steuerungsfunktionen
+ausschließlich durch mechanische Elemente.
+Die Steuerinformation wird durch Kräfte, Wege oder Bewegungen erzeugt.
+
+\paragraph{Typische Elemente}
+\begin{itemize}
+    \item Anschläge
+    \item Nocken
+    \item Kurvenscheiben
+    \item Gestänge
+\end{itemize}
+
+\paragraph{Eigenschaften}
+\begin{itemize}
+    \item Kein elektrischer Energiebedarf
+    \item Ablauf direkt an Bewegung gekoppelt
+    \item Sehr robust
+    \item Kaum flexibel
+\end{itemize}
+
+\paragraph{Beispiele}
+\begin{itemize}
+    \item Waschmaschinen mit mechanischem Programmwerk
+    \item Nockensteuerungen in Werkzeugmaschinen
+    \item Drehorgeln, Spieluhren
+\end{itemize}
+
+\paragraph{Einordnung}
+Mechanische Steuerungen sind historisch bedeutsam,
+werden heute jedoch kaum noch neu eingesetzt,
+da Änderungen nur mechanisch möglich sind.
+
+---
+
+\subsubsection{Pneumatische Steuerungen}
+
+Pneumatische Steuerungen nutzen Druckluft
+zur Signalübertragung und zur Energieversorgung der Aktoren.
+
+\paragraph{Typische Elemente}
+\begin{itemize}
+    \item Pneumatikzylinder
+    \item Wegeventile
+    \item Drosseln
+    \item Pneumatische Logikelemente
+\end{itemize}
+
+\paragraph{Eigenschaften}
+\begin{itemize}
+    \item Schnelle Schaltzeiten
+    \item Relativ einfache Logik möglich
+    \item Begrenzte Genauigkeit
+    \item Kompressibilität der Luft
+\end{itemize}
+
+\paragraph{Beispiele}
+\begin{itemize}
+    \item Handhabungssysteme
+    \item Einfache Montageautomaten
+\end{itemize}
+
+\paragraph{Einordnung}
+Pneumatische Steuerungen werden heute meist
+in Kombination mit SPS eingesetzt
+(SPS steuert Ventile, Pneumatik führt aus).
+
+---
+
+\subsubsection{Hydraulische Steuerungen}
+
+Hydraulische Steuerungen verwenden
+nicht oder kaum kompressible Flüssigkeiten
+zur Kraft- und Signalübertragung.
+
+\paragraph{Typische Elemente}
+\begin{itemize}
+    \item Hydraulikzylinder
+    \item Steuerventile
+    \item Pumpen
+    \item Druckspeicher
+\end{itemize}
+
+\paragraph{Eigenschaften}
+\begin{itemize}
+    \item Sehr hohe Stellkräfte möglich
+    \item Gute Regelbarkeit
+    \item Hoher technischer Aufwand
+    \item Wartungsintensiv
+\end{itemize}
+
+\paragraph{Beispiele}
+\begin{itemize}
+    \item Pressen
+    \item Spritzgussmaschinen
+\end{itemize}
+
+\paragraph{Einordnung}
+Hydraulische Steuerungen sind heute
+meist Teil der Steuerstrecke,
+während die Steuerlogik elektrisch oder per SPS realisiert wird.
+
+---
+
+\subsubsection{Elektrische Steuerungen}
+
+Elektrische Steuerungen realisieren die Steuerungsfunktion
+durch elektrische Schaltgeräte und Leitungsverknüpfungen.
+
+\paragraph{Typische Elemente}
+\begin{itemize}
+    \item Relais
+    \item Schütze
+    \item Schalter
+    \item Zeitrelais
+\end{itemize}
+
+\paragraph{Eigenschaften}
+\begin{itemize}
+    \item Binäre Logik gut realisierbar
+    \item Hohe Übersichtlichkeit im Stromlaufplan
+    \item Änderungen nur durch Umverdrahtung
+    \item Mechanischer Verschleiß
+\end{itemize}
+
+\paragraph{Beispiele}
+\begin{itemize}
+    \item Motorsteuerungen
+    \item Aufzugssteuerungen (klassisch)
+\end{itemize}
+
+\paragraph{Einordnung}
+Elektrische Steuerungen sind die direkte
+\textbf{Vorgänger-Technologie der SPS}
+und Grundlage für KOP-Darstellungen.
+
+---
+
+\subsubsection{Elektronische Steuerungen}
+
+Elektronische Steuerungen verwenden
+kontaktlose elektronische Bauelemente
+zur Realisierung der Steuerungslogik.
+
+\paragraph{Typische Elemente}
+\begin{itemize}
+    \item Transistoren
+    \item Logikgatter
+    \item Mikrocontroller
+    \item FPGA
+\end{itemize}
+
+\paragraph{Eigenschaften}
+\begin{itemize}
+    \item Hohe Schaltgeschwindigkeit
+    \item Kein mechanischer Verschleiß
+    \item Geringe Leistungsfähigkeit für Aktoren
+    \item Hoher Entwicklungsaufwand
+\end{itemize}
+
+\paragraph{Einordnung}
+Elektronische Steuerungen werden heute
+vor allem in eingebetteten Systemen eingesetzt
+und bilden die Hardwarebasis moderner SPS.
+
+\subsection{Speicherprogrammierbare Steuerung (SPS)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/Automatisierungspyramide.png}
+\end{figure}
+\subsubsection{Begriff}
+
+Eine speicherprogrammierbare Steuerung (SPS) ist eine
+digital arbeitende Steuerungseinrichtung zur Steuerung von Maschinen
+und Anlagen.
+Die Steuerungsfunktion wird nicht durch Verdrahtung,
+sondern durch ein im Speicher abgelegtes Programm realisiert.
+
+
+Unter einer SPS versteht man einen speziellen Computer mit mehreren (in der Regel) digitalen Ein‐/Ausgängen,
+der logische Verknüpfungen (programmierbar) zwischen den Ein‐ und Ausgängen herstellt.
+Im Prinzip können Steuerungsaufgaben auch von ganz normalen PCs erfolgen. Entsprechende Software (Soft‐SPS für
+PCs) ist für diesen Zweck auch verfügbar. Vom Standpunkt der Programmierung aus ist es unerheblich, auf welchem
+System die SPS‐Funktion umgesetzt wird. Dennoch werden Steuerungen überwiegend auf speziellen SPS‐Computern
+verwirklicht. Folgende Gründe sprechen für den Einsatz spezieller SPS‐Geräte:
+\subsubsection{Grundelemente einer SPS}
+
+Eine SPS besteht aus folgenden grundlegenden Elementen:
+
+\begin{itemize}
+    \item \textbf{Zentraleinheit (CPU)}  
+    Führt das Steuerungsprogramm aus, verwaltet Speicher,
+    steuert den Zyklus und koordiniert die Kommunikation.
+
+    \item \textbf{Netzteil}  
+    Versorgt CPU und Baugruppen mit der erforderlichen Betriebsspannung
+    (typisch 24\,V DC).
+
+    \item \textbf{Eingabebaugruppen}  
+    Erfassen binäre oder analoge Signale aus der Feldebene
+    (Sensoren).
+
+    \item \textbf{Ausgabebaugruppen}  
+    Stellen binäre oder analoge Signale zur Ansteuerung von Aktoren bereit.
+
+    \item \textbf{Kommunikationsbaugruppen}  
+    Ermöglichen den Datenaustausch mit anderen SPSen,
+    Feldgeräten oder Leitsystemen.
+
+    \item \textbf{Rückwandbus / internes Bussystem}  
+    Verbindet CPU und Baugruppen und ermöglicht den internen Datenaustausch.
+\end{itemize}
+
+\subsubsection{Baugruppen einer SPS}
+
+\paragraph{Digitale Eingabebaugruppen}
+\begin{itemize}
+    \item Erfassen binäre Zustände (0/1)
+    \item Typische Signale: Schalter, Taster, Endschalter
+    \item Galvanische Trennung zur Feldebene
+\end{itemize}
+
+\paragraph{Digitale Ausgabebaugruppen}
+\begin{itemize}
+    \item Schalten binäre Lasten
+    \item Typisch: Relais-, Transistor- oder Triac-Ausgänge
+\end{itemize}
+
+\paragraph{Analoge Eingabebaugruppen}
+\begin{itemize}
+    \item Erfassen kontinuierliche Messwerte
+    \item Typische Signale: 0–10\,V, 4–20\,mA
+\end{itemize}
+
+\paragraph{Analoge Ausgabebaugruppen}
+\begin{itemize}
+    \item Geben kontinuierliche Stellgrößen aus
+    \item Ansteuerung von Frequenzumrichtern, Ventilen, Reglern
+\end{itemize}
+
+\subsubsection{Aufbauarten von SPS-Systemen}
+
+\paragraph{Kompakt-SPS}
+\begin{itemize}
+    \item CPU, E/A und Netzteil in einem Gehäuse
+    \item Begrenzte Erweiterbarkeit
+    \item Kostengünstig
+\end{itemize}
+
+\paragraph{Modulare SPS}
+\begin{itemize}
+    \item CPU und Baugruppen steckbar
+    \item Hohe Flexibilität und Erweiterbarkeit
+    \item Industriestandard für mittlere und große Anlagen
+\end{itemize}
+
+\paragraph{Dezentrale SPS / verteilte I/O}
+\begin{itemize}
+    \item E/A-Module nahe am Prozess
+    \item Kommunikation über Feldbus
+    \item Reduzierter Verdrahtungsaufwand
+\end{itemize}
+
+\subsubsection{Eigenschaften von SPS}
+
+\begin{itemize}
+    \item Zyklische, deterministische Programmausführung
+    \item Hohe Zuverlässigkeit im industriellen Umfeld
+    \item Gute Diagnose- und Fehlermeldemöglichkeiten
+    \item Softwarebasierte Anpassbarkeit
+    \item Lange Lebensdauer
+\end{itemize}
+
+\subsubsection{Abgrenzung zu klassischen Steuerungen}
+
+Im Vergleich zu fest verdrahteten elektrischen Steuerungen
+bietet die SPS:
+\begin{itemize}
+    \item geringeren Änderungsaufwand
+    \item bessere Wartbarkeit
+    \item höhere Funktionalität
+\end{itemize}
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Die SPS ersetzt die Verdrahtungslogik durch Softwarelogik.}
+
+
+\subsection{Zentrale und dezentrale Steuerungen}
+
+Steuerungssysteme lassen sich nach der räumlichen Anordnung von
+Steuereinheit und Ein-/Ausgabebaugruppen in zentrale und dezentrale
+Steuerungen einteilen.
+
+\subsubsection{Zentrale Steuerungen}
+
+Bei zentralen Steuerungen befinden sich
+CPU, Netzteil und Ein-/Ausgabebaugruppen
+in einem gemeinsamen Schaltschrank.
+
+\paragraph{Merkmale}
+\begin{itemize}
+    \item Zentrale Verarbeitung und zentrale Peripherie
+    \item Direkte Verdrahtung aller Sensoren und Aktoren zur SPS
+    \item Übersichtliche Systemstruktur
+\end{itemize}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item Einfache Projektierung
+    \item Geringe Systemkomplexität
+    \item Gute Übersicht im Schaltschrank
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Hoher Verdrahtungsaufwand bei großen Anlagen
+    \item Lange Leitungswege zur Feldebene
+\end{itemize}
+
+\paragraph{Typische Anwendung}
+\begin{itemize}
+    \item Kleine bis mittlere Maschinen
+    \item Kompakte Anlagen
+\end{itemize}
+
+\subsubsection{Dezentrale Steuerungen}
+
+Bei dezentralen Steuerungen werden
+Ein- und Ausgabebaugruppen räumlich
+in die Nähe des Prozesses verlagert.
+Die Kommunikation mit der zentralen CPU
+erfolgt über Feldbussysteme.
+
+\paragraph{Merkmale}
+\begin{itemize}
+    \item Verteilte Ein-/Ausgabemodule
+    \item Kommunikation über Feldbus (z.\,B. Profinet, Profibus, CAN)
+    \item CPU kann zentral oder verteilt angeordnet sein
+\end{itemize}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item Reduzierter Verdrahtungsaufwand
+    \item Kürzere Sensor- und Aktorleitungen
+    \item Hohe Skalierbarkeit
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Höherer Planungsaufwand
+    \item Abhängigkeit von der Feldbuskommunikation
+\end{itemize}
+
+\paragraph{Typische Anwendung}
+\begin{itemize}
+    \item Große und räumlich verteilte Anlagen
+    \item Modulare Maschinenkonzepte
+\end{itemize}
+
+\subsubsection{Vergleich zentrale vs. dezentrale Steuerung}
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Merkmal} & \textbf{Zentral} & \textbf{Dezentral} \\ \hline
+Verdrahtungsaufwand & hoch & gering \\ \hline
+Systemkomplexität & gering & höher \\ \hline
+Erweiterbarkeit & begrenzt & sehr gut \\ \hline
+Typische Größe & klein/mittel & mittel/groß \\ \hline
+\end{tabular}
+\end{center}
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Zentrale Steuerungen sind übersichtlich,
+dezentrale Steuerungen sind flexibel und skalierbar.}
+
+\subsection{Zuordnungstabelle}
+\begin{itemize}
+    \item \textbf{Signalbezeichnung}  
+    (eindeutiger, sprechender Name des Signals)
+
+    \item \textbf{Signalart}  
+    (digitaler Eingang, digitaler Ausgang, analoger Eingang, analoger Ausgang)
+
+    \item \textbf{Physikalische Adresse}  
+    (z.\,B. \texttt{E0.0}, \texttt{A2.3}, Analogkanal)
+
+    \item \textbf{SPS-Baugruppe / Steckplatz / Kanal}  
+    (Zuordnung zur konkreten Hardware)
+
+    \item \textbf{Feldgerät}  
+    (Sensor oder Aktor, z.\,B. Endschalter, Ventil, Motor)
+
+    \item \textbf{Signalbeschreibung / Funktion}  
+    (was bewirkt das Signal im Prozess)
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/Zuordnungstabelle.png}
+\end{figure}
+
+\subsection{Feldebene}
+
+Die Feldebene bildet die unterste Ebene der Automatisierungspyramide
+und umfasst alle technischen Einrichtungen,
+die \textbf{direkt mit dem Prozess gekoppelt} sind.
+Dazu zählen Sensoren zur Erfassung von Prozessgrößen
+sowie Aktoren zur Beeinflussung des Prozesses.
+Die Kommunikation auf der Feldebene erfolgt über
+binäre oder analoge Signale,
+die von Ein-/Ausgabebaugruppen oder Feldbussystemen
+(z.\,B. Profibus, Profinet, CAN)
+zur übergeordneten Steuerung übertragen werden.
+Die Feldebene stellt damit die Schnittstelle
+zwischen realem Prozess und Steuerungssystem dar.
+
+\begin{itemize}
+    \item \textbf{Sensoren}  
+    (z.\,B. Endschalter, Näherungsschalter, Lichtschranken, Druck-, Temperatur- und Wegsensoren)
+    
+    \item \textbf{Aktoren}  
+    (z.\,B. Elektromotoren, Ventile, Zylinder, Relais, Schütze)
+    
+    \item \textbf{Ein- und Ausgabegeräte}  
+    (digitale und analoge E/A-Baugruppen, dezentrale I/O-Module)
+    
+    \item \textbf{Feldgeräte}  
+    (Messumformer, Stellgeräte, intelligente Sensoren)
+    
+    \item \textbf{Feldbussysteme und Signalübertragung}  
+    (z.\,B. Profibus, Profinet, CAN, IO-Link)
+\end{itemize}

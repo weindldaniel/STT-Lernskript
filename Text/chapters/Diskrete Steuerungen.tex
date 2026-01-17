@@ -1,0 +1,567 @@
+\newpage
+\section{Diskrete Steuerungen}
+
+\subsection{Begriff der diskreten Steuerung}
+
+Diskrete Steuerungen sind Steuerungen,
+bei denen Ein- und Ausgangsgrößen
+nur \textbf{diskrete Zustände} annehmen.
+In der Praxis handelt es sich überwiegend
+um binäre Zustände (0/1, FALSE/TRUE).
+
+Die Verarbeitung erfolgt auf Basis
+logischer Verknüpfungen, Speicherwirkungen
+und zeitlicher Abfolgen.
+
+\subsection{Hierarchische Abstraktion}
+In der Abbildung soll ersichtlich werden wie die Begriffe zusammenhängen. Die Abstraktion nimmt nach unten hin zu.
+
+\vspace*{1cm}
+\begin{tikzpicture}[
+    box/.style={
+        draw,
+        rectangle,
+        rounded corners,
+        align=center,
+        minimum width=8cm,
+        minimum height=1cm
+    },
+    node distance=1.2cm
+]
+
+% Hierarchie
+\node[box] (se) {\textbf{Schaltelemente}\\
+Relais, Kontakte, Transistoren};
+
+\node[box, below=of se] (ls) {\textbf{Logische Schaltungen}\\
+Boolesche Verknüpfungen};
+
+\node[box, below=of ls] (sn) {\textbf{Schaltnetze}\\
+speicherlose logische Systeme};
+
+\node[box, below=of sn] (f) {\textbf{Funktionen}\\
+abstrahierte Schaltnetze\\
+(ein Ausgang, kein Speicher)};
+
+\node[box, below=of f] (sw) {\textbf{Schaltwerke}\\
+logische Systeme mit Speicher};
+
+\node[box, below=of sw, thick] (fb) {\textbf{Funktionsbausteine}\\
+gekapselte Schaltwerke};
+
+% Pfeile
+\draw[->] (se) -- (ls);
+\draw[->] (ls) -- (sn);
+\draw[->] (sn) -- (f);
+\draw[->] (f) -- (sw);
+\draw[->] (sw) -- (fb);
+
+% Schaltsysteme-Klammer (Sammelbegriff)
+\draw[dashed, thick, rounded corners]
+    ($(sn.north west)+(-0.6,0.3)$) rectangle
+    ($(sw.south east)+(0.6,-0.3)$);
+
+\node[align=center] at ($(sn.west)+(-2.3,-1.2)$)
+{\textbf{Schaltsysteme}\\
+(Oberbegriff)};
+
+\end{tikzpicture}
+
+\subsection{Schaltelemente}
+
+Schaltelemente sind die elementaren
+Bausteine diskreter Steuerungen.
+Sie besitzen klar definierte Eingänge
+und einen oder mehrere Ausgänge.
+
+\paragraph{Grundlegende Schaltelemente}
+\begin{itemize}
+    \item Schalter
+    \item Relais
+    \item Schütze
+    \item Elektronische Schaltelemente (Transistoren)
+\end{itemize}
+
+Schaltelemente können Signale:
+\begin{itemize}
+    \item schalten
+    \item verknüpfen
+    \item speichern
+\end{itemize}
+
+\subsection{Grundlagen logischer Schaltungen}
+
+Logische Schaltungen verarbeiten binäre Signale
+nach den Regeln der Booleschen Algebra.
+
+\paragraph{Logische Grundfunktionen}
+\begin{itemize}
+    \item TRUE / FALSE
+    \item AND
+    \item OR
+    \item NOT
+\end{itemize}
+
+Diese Grundfunktionen können durch
+Schaltelemente realisiert werden
+(z.\,B. Reihenschaltung, Parallelschaltung).
+
+\paragraph{Erweiterte logische Funktionen}
+\begin{itemize}
+    \item Exklusiv-ODER (XOR)
+    \item NAND
+    \item NOR
+\end{itemize}
+
+\subsection{Darstellung von Logikfunktionen durch Wertetabellen}
+
+Eine Logikfunktion beschreibt den funktionalen Zusammenhang
+zwischen binären Eingangsgrößen und einer binären Ausgangsgröße.
+Die Eingänge und der Ausgang können ausschließlich die Werte
+\texttt{0} (FALSE) oder \texttt{1} (TRUE) annehmen.
+
+Logikfunktionen bilden die Grundlage aller diskreten Steuerungen
+und werden mithilfe der Booleschen Algebra beschrieben.
+
+\subsection{Boolesche Grundfunktionen}
+
+\subsubsection{NICHT-Funktion (NOT)}
+
+Die NICHT-Funktion invertiert den Eingang.
+
+\[
+y = \lnot a
+\]
+
+\paragraph{Wertetabelle}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$a$ & $y = \lnot a$ \\ \hline
+0 & 1 \\ \hline
+1 & 0 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{UND-Funktion (AND)}
+
+Die UND-Funktion liefert nur dann den Wert 1,
+wenn \textbf{alle Eingänge} den Wert 1 besitzen.
+
+\[
+y = a \land b
+\]
+
+\paragraph{Wertetabelle}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$a$ & $b$ & $y = a \land b$ \\ \hline
+0 & 0 & 0 \\ \hline
+0 & 1 & 0 \\ \hline
+1 & 0 & 0 \\ \hline
+1 & 1 & 1 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{ODER-Funktion (OR)}
+
+Die ODER-Funktion liefert den Wert 1,
+wenn \textbf{mindestens ein Eingang} den Wert 1 besitzt.
+
+\[
+y = a \lor b
+\]
+
+\paragraph{Wertetabelle}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$a$ & $b$ & $y = a \lor b$ \\ \hline
+0 & 0 & 0 \\ \hline
+0 & 1 & 1 \\ \hline
+1 & 0 & 1 \\ \hline
+1 & 1 & 1 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection{Erweiterte Logikfunktionen}
+
+\subsubsection{Exklusiv-ODER-Funktion (XOR)}
+
+Die Exklusiv-ODER-Funktion liefert genau dann den Wert 1,
+wenn die Eingänge \textbf{unterschiedlich} sind.
+
+\[
+y = a \oplus b
+\]
+
+\paragraph{Wertetabelle}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$a$ & $b$ & $y = a \oplus b$ \\ \hline
+0 & 0 & 0 \\ \hline
+0 & 1 & 1 \\ \hline
+1 & 0 & 1 \\ \hline
+1 & 1 & 0 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{NAND-Funktion}
+
+Die NAND-Funktion ist die Negation der UND-Funktion.
+
+\[
+y = \lnot (a \land b)
+\]
+
+\paragraph{Wertetabelle}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$a$ & $b$ & $y$ \\ \hline
+0 & 0 & 1 \\ \hline
+0 & 1 & 1 \\ \hline
+1 & 0 & 1 \\ \hline
+1 & 1 & 0 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{NOR-Funktion}
+
+Die NOR-Funktion ist die Negation der ODER-Funktion.
+
+\[
+y = \lnot (a \lor b)
+\]
+
+\paragraph{Wertetabelle}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$a$ & $b$ & $y$ \\ \hline
+0 & 0 & 1 \\ \hline
+0 & 1 & 0 \\ \hline
+1 & 0 & 0 \\ \hline
+1 & 1 & 0 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Zusammenhang zu Schaltelementen}
+
+Logikfunktionen können physikalisch
+durch Schaltelemente realisiert werden:
+
+\begin{itemize}
+    \item UND-Funktion → Reihenschaltung von Kontakten
+    \item ODER-Funktion → Parallelschaltung von Kontakten
+    \item NICHT-Funktion → Öffnerkontakt
+\end{itemize}
+
+Diese Abbildungen bilden die Grundlage
+für die Darstellung in KOP
+sowie für elektrische Steuerungen.
+
+\subsubsection{Zusammenfassung}
+
+Logikfunktionen beschreiben die grundlegenden Zusammenhänge
+binärer Steuerungssysteme.
+Sie sind Grundlage für Schaltnetze,
+Schaltwerke und Funktionsbausteine.
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Jede diskrete Steuerung lässt sich auf Logikfunktionen zurückführen.}
+
+\subsection{Minterme und Maxterme}
+
+\subsubsection{Grundidee}
+
+Minterme und Maxterme sind standardisierte Darstellungsformen
+logischer Funktionen auf Basis von Wertetabellen.
+Sie ermöglichen eine systematische und eindeutige Beschreibung
+beliebiger Logikfunktionen mithilfe der Booleschen Algebra.
+
+\subsubsection{Minterm}
+
+Ein \textbf{Minterm} ist eine logische UND-Verknüpfung
+aller Eingangsvariablen oder ihrer Negationen,
+die \textbf{genau für eine bestimmte Eingangskombination den Wert 1} liefert.
+
+\paragraph{Eigenschaften eines Minterms}
+\begin{itemize}
+    \item Enthält alle Eingangsvariablen genau einmal
+    \item Nicht negierte Variable entspricht Eingang = 1
+    \item Negierte Variable entspricht Eingang = 0
+    \item Ergebnis ist nur für eine Kombination TRUE
+\end{itemize}
+
+\paragraph{Beispiel}
+
+Für zwei Eingänge $a$ und $b$:
+
+\[
+m_2 = a \land \lnot b
+\]
+
+Dieser Minterm ist genau dann TRUE, wenn:
+\[
+a = 1 \;\land\; b = 0
+\]
+
+\subsubsection{Minterme aus der Wertetabelle}
+
+Gegeben sei folgende Wertetabelle:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$a$ & $b$ & $y$ \\ \hline
+0 & 0 & 0 \\ \hline
+0 & 1 & 1 \\ \hline
+1 & 0 & 1 \\ \hline
+1 & 1 & 0 \\ \hline
+\end{tabular}
+\end{center}
+
+Die Funktion ist für die Eingangskombinationen
+$(0,1)$ und $(1,0)$ gleich 1.
+
+Daraus ergeben sich die Minterme:
+\[
+m_1 = \lnot a \land b
+\]
+\[
+m_2 = a \land \lnot b
+\]
+
+\paragraph{Disjunktive Normalform (DNF)}
+
+Die vollständige Darstellung der Funktion lautet:
+\[
+y = m_1 \lor m_2
+\]
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Minterme beschreiben alle Eingangskombinationen,
+für die die Funktion den Wert 1 annimmt.}
+
+\subsubsection{Maxterm}
+
+Ein \textbf{Maxterm} ist eine logische ODER-Verknüpfung
+aller Eingangsvariablen oder ihrer Negationen,
+die \textbf{genau für eine bestimmte Eingangskombination den Wert 0} liefert.
+
+\paragraph{Eigenschaften eines Maxterms}
+\begin{itemize}
+    \item Enthält alle Eingangsvariablen genau einmal
+    \item Nicht negierte Variable entspricht Eingang = 0
+    \item Negierte Variable entspricht Eingang = 1
+    \item Ergebnis ist nur für eine Kombination FALSE
+\end{itemize}
+
+\paragraph{Beispiel}
+
+\[
+M_2 = a \lor \lnot b
+\]
+
+Dieser Maxterm ist genau dann FALSE, wenn:
+\[
+a = 0 \;\land\; b = 1
+\]
+
+\subsubsection{Maxterme aus der Wertetabelle}
+
+Aus der obigen Wertetabelle ergibt sich:
+Die Funktion ist für die Eingangskombinationen
+$(0,0)$ und $(1,1)$ gleich 0.
+
+Daraus ergeben sich die Maxterme:
+\[
+M_0 = a \lor b
+\]
+\[
+M_3 = \lnot a \lor \lnot b
+\]
+
+\paragraph{Konjunktive Normalform (KNF)}
+
+Die vollständige Darstellung der Funktion lautet:
+\[
+y = M_0 \land M_3
+\]
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Maxterme beschreiben alle Eingangskombinationen,
+für die die Funktion den Wert 0 annimmt.}
+
+\subsubsection{Vergleich Minterm und Maxterm}
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Merkmal} & \textbf{Minterm} & \textbf{Maxterm} \\ \hline
+Basierend auf & $y = 1$ & $y = 0$ \\ \hline
+Verknüpfung & UND & ODER \\ \hline
+Normalform & DNF & KNF \\ \hline
+Negation & bei Eingängen mit 0 & bei Eingängen mit 1 \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Bedeutung für diskrete Steuerungen}
+
+Minterme und Maxterme bilden die theoretische Grundlage für:
+\begin{itemize}
+    \item systematische Schaltungsentwürfe
+    \item Vereinfachung logischer Funktionen
+    \item Umsetzung von Schaltnetzen
+    \item Analyse von Steuerungslogik
+\end{itemize}
+
+\medskip
+\textbf{Zusammenfassender Merksatz:}  
+\emph{Minterme führen von der Wertetabelle zur logischen Gleichung,
+Maxterme von der logischen Gleichung zur Wertetabelle.}
+
+\subsection{Schaltnetze}
+
+Schaltnetze sind \textbf{speicherlose}
+Schaltsysteme.
+
+\paragraph{Eigenschaft}
+Der Ausgang eines Schaltnetzes
+hängt ausschließlich von den
+aktuellen Eingangswerten ab.
+
+\[
+a = f(e)
+\]
+
+\paragraph{Merkmale}
+\begin{itemize}
+    \item Keine Speicherwirkung
+    \item Keine Zustandsabhängigkeit
+    \item Rein kombinatorisches Verhalten
+\end{itemize}
+
+\paragraph{Beispiele}
+\begin{itemize}
+    \item Logische Verriegelungen
+    \item Freigabeschaltungen
+    \item Sicherheitsabfragen
+\end{itemize}
+
+\subsection{Funktionen}
+
+Funktionen sind abstrahierte logische
+Zusammenfassungen von Schaltnetzen.
+
+Sie besitzen:
+\begin{itemize}
+    \item definierte Eingänge
+    \item genau einen Ausgang
+    \item keine Speicherwirkung
+\end{itemize}
+
+Funktionen beschreiben damit
+eine reine logische Abbildung
+von Eingang auf Ausgang.
+
+\subsection{Schaltwerke}
+
+Schaltwerke sind \textbf{schaltende Systeme mit Speicherwirkung}.
+
+\paragraph{Eigenschaft}
+Der Ausgang hängt von:
+\begin{itemize}
+    \item den aktuellen Eingängen
+    \item dem internen Zustand
+\end{itemize}
+ab.
+
+\[
+a = f(e, s)
+\]
+
+\paragraph{Merkmale}
+\begin{itemize}
+    \item Speicherwirkung vorhanden
+    \item Zustandsabhängiges Verhalten
+    \item Grundlage für Ablaufsteuerungen
+\end{itemize}
+
+\paragraph{Typische Speicher}
+\begin{itemize}
+    \item Selbsthaltung
+    \item Flip-Flops (RS, SR)
+    \item Merker
+\end{itemize}
+
+\subsection{Schaltsysteme}
+
+Ein Schaltsystem ist die
+\textbf{Zusammenfassung mehrerer Schaltelemente}
+zu einer funktionalen Einheit.
+
+Schaltsysteme lassen sich grundsätzlich
+in zwei Klassen einteilen:
+\begin{itemize}
+    \item Schaltnetze
+    \item Schaltwerke
+\end{itemize}
+
+Diese Unterscheidung ist grundlegend
+für das Verständnis diskreter Steuerungen.
+
+
+\subsection{Funktionsbausteine}
+
+Funktionsbausteine sind
+\textbf{gekapselte Schaltwerke}
+mit definierten Schnittstellen.
+
+Sie kombinieren:
+\begin{itemize}
+    \item logische Verknüpfungen
+    \item Speicherfunktionen
+    \item gegebenenfalls Zeitfunktionen
+\end{itemize}
+
+\paragraph{Eigenschaften}
+\begin{itemize}
+    \item Mehrere Ein- und Ausgänge
+    \item Interner Zustand
+    \item Wiederverwendbarkeit
+\end{itemize}
+
+\paragraph{Beispiele}
+\begin{itemize}
+    \item Zeitglieder
+    \item Zähler
+    \item Speicherbausteine
+\end{itemize}
+
+\subsection{Zusammenhang der Begriffe}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Begriff} & \textbf{Charakteristik} \\ \hline
+Schaltelement & Physikalisches Grundelement \\ \hline
+Logische Schaltung & Logische Verknüpfung \\ \hline
+Schaltnetz & Speicherloses System \\ \hline
+Funktion & Abstraktes Schaltnetz \\ \hline
+Schaltwerk & System mit Speicher \\ \hline
+Funktionsbaustein & Gekapseltes Schaltwerk \\ \hline
+\end{tabular}
+\end{center}
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Schaltnetze kennen keinen Zustand,
+Schaltwerke benötigen Speicher.}
+

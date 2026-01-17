@@ -1,0 +1,155 @@
+\newpage
+\subsection{FBS}
+
+\subsubsection{Grundprinzip}
+
+Die Funktionsbausteinsprache (FBS, engl. Function Block Diagram – FBD)
+ist eine grafische Programmiersprache nach IEC~61131-3.
+Sie basiert auf der Darstellung von Funktionen und Funktionsbausteinen
+als grafische Blöcke, die über Signalverbindungen miteinander verknüpft sind.
+
+Im Mittelpunkt steht der \textbf{Signalfluss} zwischen Ein- und Ausgängen.
+
+\subsubsection{Signalflussorientierung}
+
+In FBS wird die Programmlogik durch die Verbindung von Ausgängen
+zu Eingängen anderer Bausteine beschrieben.
+
+\begin{itemize}
+    \item Daten fließen von links nach rechts
+    \item Ein Ausgang kann mehrere Eingänge speisen
+    \item Der Signalfluss bestimmt die logische Abhängigkeit
+\end{itemize}
+
+Die zeitliche Ausführung erfolgt dennoch innerhalb des SPS-Zyklus
+und wird durch die zugeordnete Task bestimmt.
+
+\subsubsection{Bausteintypen in FBS}
+
+In FBS können folgende Bausteintypen verwendet werden:
+
+\begin{itemize}
+    \item Funktionen (stateless)
+    \item Funktionsbausteine (mit Gedächtnis)
+    \item Erweiterbare Funktionen
+\end{itemize}
+
+\paragraph{Funktionen}
+Funktionen besitzen kein internes Gedächtnis.
+Bei gleichen Eingängen liefern sie immer gleiche Ausgänge.
+
+\paragraph{Funktionsbausteine}
+Funktionsbausteine besitzen ein internes Gedächtnis.
+Sie benötigen eine Instanzvariable und sind für
+zustandsbehaftete Aufgaben geeignet (z.\,B. Timer, Zähler).
+
+\subsubsection{Bausteininstanzen}
+
+Jeder Funktionsbaustein wird über eine Instanz aufgerufen.
+Die Instanz speichert die internen Zustände des Bausteins
+über mehrere SPS-Zyklen hinweg.
+
+\begin{itemize}
+    \item Eine Instanz pro Funktionsbaustein-Aufruf
+    \item Mehrere Instanzen desselben Bausteintyps möglich
+\end{itemize}
+
+Ohne Instanz ist keine Speicherwirkung möglich.
+
+\subsubsection{EN/ENO-Logik}
+
+Viele Funktionsbausteine und Funktionen besitzen optionale
+Enable-Eingänge (EN) und Enable-Ausgänge (ENO).
+
+\begin{itemize}
+    \item EN = FALSE: Baustein wird nicht ausgeführt
+    \item EN = TRUE: Baustein wird ausgeführt
+    \item ENO zeigt an, ob der Baustein aktiv war
+\end{itemize}
+
+Ist EN FALSE, bleiben die Ausgänge des Bausteins unverändert.
+Dies ist insbesondere bei der Weiterverschaltung zu beachten.
+
+\subsubsection{Weiterverschaltung von Bausteinen}
+
+\begin{itemize}
+    \item Bausteine ohne EN/ENO können direkt weiter verschaltet werden
+    \item Bausteine mit aktiviertem EN/ENO dürfen
+    ausgangsseitig nicht direkt weiter verschaltet werden
+    \item Zwischenspeicherung über Variablen ist erforderlich
+\end{itemize}
+
+Diese Einschränkung dient der Vermeidung undefinierter Zustände,
+wenn Bausteine deaktiviert sind.
+
+\subsubsection{Analoge Signalverarbeitung}
+
+FBS eignet sich besonders gut zur Verarbeitung analoger Werte.
+
+\begin{itemize}
+    \item Analoge Werte werden über Linien dargestellt
+    \item Keine analogen Kontakte wie in KOP
+    \item Verbindung nur über Funktions- oder FB-Ein-/Ausgänge
+\end{itemize}
+
+Typische Anwendungen:
+\begin{itemize}
+    \item Skalierung
+    \item Vergleich
+    \item Berechnung
+    \item Filterung
+\end{itemize}
+
+\subsubsection{Erweiterbare Funktionen}
+
+Die IEC~61131-3 definiert erweiterbare Funktionen,
+die mehr als zwei Eingänge besitzen können.
+
+Beispiele:
+\begin{itemize}
+    \item ADD
+    \item MUL
+    \item AND
+    \item OR
+    \item MAX / MIN
+\end{itemize}
+
+Nicht beschaltete Eingänge sind nicht zulässig.
+
+\subsubsection{Vergleich FBS zu KOP und ST}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Merkmal} & \textbf{FBS} & \textbf{KOP} & \textbf{ST} \\ \hline
+Darstellung & grafisch & grafisch & textuell \\ \hline
+Binäre Logik & gut & sehr gut & gut \\ \hline
+Analoge Werte & sehr gut & eingeschränkt & sehr gut \\ \hline
+Übersichtlichkeit & hoch & hoch & mittel \\ \hline
+Komplexe Algorithmen & eingeschränkt & schlecht & sehr gut \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Vor- und Nachteile von FBS}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item Sehr anschauliche Darstellung
+    \item Ideal für Signalverarbeitung
+    \item Gute Diagnosemöglichkeiten
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Bei großen Programmen schnell unübersichtlich
+    \item Schleifen und komplexe Abläufe schwer darstellbar
+\end{itemize}
+
+\subsubsection{Einordnung}
+
+FBS eignet sich besonders für:
+\begin{itemize}
+    \item Signalflussorientierte Aufgaben
+    \item Analogwertverarbeitung
+    \item Kombination mit KOP und ST
+\end{itemize}

@@ -1,0 +1,202 @@
+\newpage
+\subsection{AWL}
+
+\subsubsection{Grundprinzip}
+
+Die Anweisungsliste (AWL, engl. Instruction List – IL) ist eine textuelle
+Programmiersprache der IEC~61131-3.
+Sie ist maschinennah aufgebaut und lehnt sich konzeptionell an die
+Assemblerprogrammierung an.
+
+AWL arbeitet nach dem Prinzip einer \textbf{Ein-Adress-Maschine}.
+Alle Operationen erfolgen über ein zentrales Rechenregister,
+den sogenannten \textbf{Akkumulator (AKKU)}.
+
+\subsubsection{Ein-Adress-Maschine}
+
+Bei einer Ein-Adress-Maschine besitzt jede Rechenoperation genau einen expliziten
+Operanden.
+Der zweite Operand ist implizit der Inhalt des Akkumulators.
+
+\medskip
+Arbeitsweise:
+\begin{enumerate}
+    \item Ein Wert wird in den Akku geladen
+    \item Der Akku wird mit weiteren Operanden verarbeitet
+    \item Das Ergebnis wird aus dem Akku gespeichert
+\end{enumerate}
+
+\paragraph{Beispiel}
+Berechnung:
+\[
+a = (x + y) \cdot c
+\]
+
+AWL-Code:
+\begin{verbatim}
+LD   x
+ADD  y
+MUL  c
+ST   a
+\end{verbatim}
+
+\subsubsection{Aufbau eines AWL-Programms}
+
+Ein AWL-Programm besteht aus einer Folge von Anweisungen.
+Jede Anweisung steht in einer eigenen Zeile und besteht aus:
+\begin{itemize}
+    \item einem Operator
+    \item optional einem oder mehreren Operanden
+\end{itemize}
+
+Vor einer Anweisung kann optional eine Sprungmarke (Label) stehen.
+
+\subsubsection{Akkumulator}
+
+Der Akkumulator speichert stets das Ergebnis der letzten Operation.
+Jede neue Operation überschreibt den vorherigen Inhalt des Akkus.
+
+Der Datentyp des Akkumulators wird durch die ausgeführte Operation bestimmt.
+Daher müssen die Datentypen aufeinanderfolgender Anweisungen kompatibel sein.
+
+\medskip
+\textbf{Wichtig:}  
+Ein falscher Datentyp im Akku führt zu Laufzeit- oder Compilerfehlern.
+
+\subsubsection{Operatoren und Operanden}
+
+\paragraph{Operatoren}
+Operatoren beschreiben die auszuführende Operation.
+Typische Operatoren sind:
+\begin{itemize}
+    \item LD (Load)
+    \item ST (Store)
+    \item AND, OR, XOR
+    \item ADD, SUB, MUL, DIV
+    \item EQ, GT, LT
+\end{itemize}
+
+\paragraph{Operanden}
+Operanden können sein:
+\begin{itemize}
+    \item Variablen
+    \item Literale
+    \item Instanznamen von Funktionsbausteinen
+\end{itemize}
+
+\subsubsection{Modifier in AWL}
+
+Operatoren können durch sogenannte Modifier erweitert werden.
+
+\paragraph{Negationsmodifier N}
+Der Modifier \texttt{N} negiert den Operanden vor der Ausführung der Operation.
+
+\begin{verbatim}
+LD   Var1
+ANDN Var2
+ST   Var3
+\end{verbatim}
+
+Dies entspricht logisch:
+\[
+Var3 := Var1 \land \lnot Var2
+\]
+
+\subsubsection{Klammerung und Schachtelung}
+
+AWL erlaubt die Klammerung von Anweisungsfolgen.
+Der geklammerte Ausdruck wird zuerst ausgewertet und anschließend
+mit dem vorherigen Akkumulatorwert verknüpft.
+
+\begin{verbatim}
+LD   Var1
+AND(
+     Var2
+     OR Var3
+   )
+ST   Var4
+\end{verbatim}
+
+Ergebnis:
+\[
+Var4 := Var1 \land (Var2 \lor Var3)
+\]
+
+Klammern können geschachtelt werden, müssen jedoch stets
+einen gültigen Datentyp liefern.
+
+\subsubsection{Bedingte Ausführung}
+
+AWL ermöglicht die bedingte Ausführung von Anweisungen.
+Hierzu wird das aktuelle Ergebnis im Akku als Bedingung verwendet.
+
+\paragraph{Modifier C}
+Mit dem Modifier \texttt{C} wird eine Anweisung nur ausgeführt,
+wenn der Akkumulator den Wert TRUE enthält.
+
+\begin{verbatim}
+LD    Var1
+GT    10
+JMPC  label
+LD    20
+ST    Var2
+label:
+\end{verbatim}
+
+Ist \texttt{Var1 > 10}, wird der Sprung ausgeführt und
+die Zuweisung an \texttt{Var2} übersprungen.
+
+\subsubsection{Sprünge und Marken}
+
+AWL unterstützt bedingte und unbedingte Sprünge.
+Sprungziele werden durch Marken (Labels) definiert.
+
+\begin{itemize}
+    \item JMP  – unbedingter Sprung
+    \item JMPC – bedingter Sprung (TRUE)
+    \item JMPCN – bedingter Sprung (FALSE)
+\end{itemize}
+
+Sprünge ermöglichen einfache Ablaufsteuerungen,
+ersetzen jedoch keine strukturierte Ablaufbeschreibung.
+
+\subsubsection{Kommentare}
+
+Kommentare dienen ausschließlich der Dokumentation
+und haben keinen Einfluss auf die Programmausführung.
+
+\begin{itemize}
+    \item Mehrzeilige Kommentare: \texttt{(* Kommentar *)}
+    \item Zeilenkommentare (herstellerspezifisch): \texttt{// Kommentar}
+\end{itemize}
+
+In AWL sind Kommentare besonders wichtig,
+da die Lesbarkeit geringer ist als bei grafischen Sprachen.
+
+\subsubsection{Vor- und Nachteile von AWL}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item Maschinennah und effizient
+    \item Gute Kontrolle über den Programmablauf
+    \item Binäre Logik sehr einfach abbildbar
+    \item Analogwertverarbeitung einfacher als in KOP
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Geringe Übersichtlichkeit
+    \item Schleifen und Verzweigungen nur umständlich realisierbar
+    \item Hoher Dokumentationsaufwand notwendig
+\end{itemize}
+
+\subsubsection{Einordnung}
+
+AWL ist besonders geeignet für:
+\begin{itemize}
+    \item zeitkritische Programmteile
+    \item maschinennahe Steuerungslogik
+    \item Analyse und Optimierung bestehender Programme
+\end{itemize}
+
+In modernen Projekten wird AWL häufig durch ST oder grafische Sprachen ergänzt.

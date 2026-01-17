@@ -1,0 +1,62 @@
+
+\documentclass[a4paper,12pt]{article}
+\input{preamble/settings}
+\addbibresource{bibliography.bib}
+
+% ------------------ Dokument ------------------
+\begin{document}
+% ------------------ Titelseite ------------------
+\begin{titlepage}
+    \centering
+
+    % ------------------ Titel ------------------
+    \vspace*{2cm}
+    {\LARGE \bfseries Steuerungstechnik \par}
+    \vspace{0.5cm}
+    {\Large STT 5  \par}
+
+    \vspace{0.8cm}
+    \rule{0.8\textwidth}{0.6pt}
+
+    % ------------------ Untertitel ------------------
+    \vspace{0.8cm}
+    {\large Lernskript \par}
+
+    \vspace{1.2cm}
+    \rule{0.6\textwidth}{0.4pt}
+    \vspace{1cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/titelbild2.png}
+\end{figure}
+
+    % ------------------ Meta-Informationen ------------------
+    \vfill
+    \begin{tabular}{rl}
+        \textbf{Name:} & Daniel Weindl \\
+        \textbf{Studiengang:} & Automatisierungstechnik \\
+        \textbf{Datum:} & \today \\
+    \end{tabular}
+
+    \vspace{1.5cm}
+
+\end{titlepage}
+% ------------------ Inhaltsverzeichnis ------------------
+\tableofcontents
+\newpage
+% ------------------ Kapitel ------------------
+%\input{chapters/Einleitung.tex}
+\input{chapters/Einleitung.tex}
+\input{chapters/Diskrete Steuerungen.tex}
+\input{chapters/Programmiersprachen.tex}
+\input{chapters/SPS-Konfiguration.tex}
+\input{chapters/Projektierung.tex}
+\input{chapters/Entwurf von Programmen.tex}
+\input{chapters/Elektrische Steuerungen.tex}
+\input{chapters/Betriebsmittelkennzeichnung.tex}
+\input{chapters/IO-Baugruppen.tex}
+\input{chapters/Gebersysteme.tex}
+% ------------------ Literaturverzeichnis ------------------
+%\printbibliography
+\end{document}

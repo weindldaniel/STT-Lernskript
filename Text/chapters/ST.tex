@@ -1,0 +1,194 @@
+\newpage
+\subsection{ST}
+
+\subsubsection{Grundprinzip}
+
+Strukturierter Text (ST, engl. Structured Text) ist eine textuelle
+Hochsprache nach IEC~61131-3.
+Sie ähnelt klassischen Programmiersprachen wie Pascal oder C
+und eignet sich besonders für komplexe Algorithmen,
+Berechnungen und strukturierte Ablaufbeschreibungen.
+
+ST ist deterministisch und zyklisch in das SPS-Abarbeitungsmodell eingebettet.
+
+\subsubsection{Aufbau und Syntax}
+
+Ein ST-Programm besteht aus Anweisungen, die sequenziell abgearbeitet werden.
+Die Syntax ist blockorientiert und verwendet Schlüsselwörter zur
+Strukturierung des Programms.
+
+Beispiel:
+\begin{verbatim}
+IF a > b THEN
+    c := a;
+ELSE
+    c := b;
+END_IF;
+\end{verbatim}
+
+\subsubsection{Datentypen}
+
+ST unterstützt alle in IEC~61131-3 definierten Datentypen.
+
+\paragraph{Elementare Datentypen}
+\begin{itemize}
+    \item BOOL
+    \item INT, DINT
+    \item REAL
+    \item TIME
+\end{itemize}
+
+\paragraph{Zusammengesetzte Datentypen}
+\begin{itemize}
+    \item ARRAY
+    \item STRUCT
+    \item ENUM (Aufzählungstypen)
+\end{itemize}
+
+\paragraph{Beispiel: ARRAY}
+\begin{verbatim}
+TYPE
+    messwert : ARRAY[1..50] OF REAL;
+END_TYPE
+\end{verbatim}
+
+\paragraph{Beispiel: STRUCT}
+\begin{verbatim}
+TYPE
+    ventil : STRUCT
+        vorhanden : BOOL;
+        ausschuss : BOOL;
+        zylinder  : BOOL;
+        farbe     : INT;
+    END_STRUCT;
+END_TYPE
+\end{verbatim}
+
+\subsubsection{Typkonversion}
+
+Bei gemischter Verwendung von Datentypen ist eine explizite
+Typkonversion erforderlich.
+
+\begin{verbatim}
+VAR
+    i : INT;
+    r : REAL;
+END_VAR
+
+r := INT_TO_REAL(i);
+i := TRUNC(r);
+\end{verbatim}
+
+\subsubsection{Kontrollstrukturen}
+
+\paragraph{IF / ELSIF / ELSE}
+\begin{verbatim}
+IF x = 0 THEN
+    y := 0;
+ELSIF x > 0 THEN
+    y := 1;
+ELSE
+    y := -1;
+END_IF;
+\end{verbatim}
+
+\paragraph{CASE}
+\begin{verbatim}
+CASE state OF
+    0: y := 0;
+    1: y := 10;
+    2: y := 20;
+ELSE
+    y := -1;
+END_CASE;
+\end{verbatim}
+
+\subsubsection{Schleifen}
+
+\paragraph{WHILE}
+\begin{verbatim}
+WHILE x < 10 DO
+    x := x + 1;
+END_WHILE;
+\end{verbatim}
+
+\paragraph{REPEAT}
+\begin{verbatim}
+REPEAT
+    x := x + 1;
+UNTIL x >= 10
+END_REPEAT;
+\end{verbatim}
+
+\paragraph{FOR-Schleife}
+
+Die FOR-Schleife ist die wichtigste Schleifenform in ST
+und in den Folien detailliert behandelt.
+
+\begin{verbatim}
+FOR cnt := startVal TO endVal BY stepVal DO
+    (* Anweisungen *)
+END_FOR;
+\end{verbatim}
+
+\subsubsection{Abarbeitungsverhalten der FOR-Schleife}
+
+\begin{itemize}
+    \item Wird \texttt{startVal > endVal} bei positivem \texttt{stepVal},  
+    wird die Schleife \textbf{nicht ausgeführt}.
+    \item Bei \texttt{startVal = endVal} wird die Schleife \textbf{genau einmal} ausgeführt.
+    \item Der Abbruch erfolgt bei \textbf{größer} bzw. \textbf{kleiner},
+    nicht bei größer/kleiner gleich.
+    \item Der Zählerwert nach Verlassen der Schleife ist
+    \texttt{letzter Wert + stepVal}.
+    \item Änderungen von \texttt{startVal}, \texttt{endVal} oder \texttt{stepVal}
+    innerhalb der Schleife werden berücksichtigt.
+    \item \texttt{stepVal = 0} führt zu einer Endlosschleife
+    und damit zu einer Zykluszeitverletzung.
+    \item Der Schleifenzähler muss ein ganzzahliger Datentyp sein.
+\end{itemize}
+
+\subsubsection{EXIT}
+
+Mit \texttt{EXIT} kann eine Schleife vorzeitig verlassen werden.
+
+\begin{verbatim}
+FOR i := 1 TO 10 DO
+    IF i = 5 THEN
+        EXIT;
+    END_IF;
+END_FOR;
+\end{verbatim}
+
+\subsubsection{Determinismus und Laufzeit}
+
+ST-Anweisungen werden innerhalb eines SPS-Zyklus vollständig abgearbeitet.
+Endlosschleifen oder sehr große Schleifen können
+eine \textbf{Zykluszeitverletzung} verursachen.
+
+\subsubsection{Vor- und Nachteile von ST}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item Sehr gut lesbar und strukturiert
+    \item Mächtige Kontrollstrukturen
+    \item Ideal für Berechnungen und Algorithmen
+    \item Gute Wartbarkeit
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Weniger anschaulich für binäre Logik
+    \item Fehler durch Endlosschleifen möglich
+\end{itemize}
+
+\subsubsection{Einordnung}
+
+ST ist besonders geeignet für:
+\begin{itemize}
+    \item komplexe Ablauf- und Rechenalgorithmen
+    \item Datenverarbeitung
+    \item Umsetzung von Hochsprachenkonstrukten
+\end{itemize}
+
+In der Praxis wird ST häufig mit grafischen Sprachen kombiniert.

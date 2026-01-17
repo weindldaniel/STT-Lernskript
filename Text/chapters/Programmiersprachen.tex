@@ -1,0 +1,730 @@
+\newpage
+\section{Programmiersprachen}
+
+\subsection{Allgemein}
+\subsection*{Allgemeines und Norm IEC 61131-3}
+
+Die Programmierung speicherprogrammierbarer Steuerungen (SPS) erfolgt normiert
+nach der internationalen Norm \textbf{IEC 61131-3}.
+Diese Norm definiert sowohl die zulässigen Programmiersprachen als auch
+das Softwaremodell und grundlegende Konzepte der SPS-Programmierung.
+
+Ziel der Norm ist eine herstellerunabhängige, strukturierte und wartbare
+Automatisierungssoftware.
+
+\subsection*{Programmiersprachen nach IEC 61131-3}
+
+Die IEC 61131-3 definiert fünf standardisierte Programmiersprachen:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{/Users/danielweindl/_source/LaTex/STT-Lernskript/Bilder/Programmiersprachen.png}
+\end{figure}
+
+\renewcommand{\arraystretch}{1.3} % größerer Zeilenabstand
+\begin{center}
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Deutsch} & \textbf{Abkürzung} & \textbf{English} \\ \hline
+Anweisungsliste & AWL -- IL & Instruction List \\ \hline
+Strukturierter Text & ST & Structured Text \\ \hline
+Funktionsbausteinsprache & FBS -- FBD & Function Block Diagram \\ \hline
+Kontaktplan & KOP -- LD & Ladder Diagram \\ \hline
+Ablaufsprache & AS -- SFC & Sequential Function Chart \\ \hline
+\end{tabular}
+\end{center}
+
+Die Sprachen lassen sich in zwei Gruppen einteilen:
+\begin{itemize}
+    \item \textbf{textuelle Sprachen}: AWL, ST
+    \item \textbf{grafische Sprachen}: KOP, FBS, AS
+\end{itemize}
+
+\subsection*{Softwaremodell einer SPS}
+
+Nach IEC 61131-3 ist die Software einer SPS hierarchisch aufgebaut.
+Diese Hierarchie dient der Strukturierung, Wiederverwendbarkeit und Wartbarkeit.
+
+\subsubsection*{Konfiguration}
+
+Die Konfiguration bildet die oberste Ebene des Softwaremodells.
+Sie entspricht einem vollständigen SPS-System und kann eine oder mehrere
+Ressourcen enthalten.
+
+In komplexen Anlagen können mehrere Konfigurationen existieren,
+die miteinander kommunizieren.
+
+\subsubsection*{Ressource}
+
+Eine Ressource ist einer Konfiguration untergeordnet und umfasst typischerweise
+eine CPU eines SPS-Systems.
+
+Jede Ressource enthält:
+\begin{itemize}
+    \item Tasks
+    \item Programm-Organisationseinheiten (POEs)
+\end{itemize}
+
+\subsubsection*{Task}
+
+Eine Task definiert die \textbf{Abarbeitungseigenschaften} von Programmen.
+Sie legt fest:
+\begin{itemize}
+    \item Art der Ausführung (zyklisch, ereignisgesteuert)
+    \item Zykluszeit
+    \item Priorität
+\end{itemize}
+
+Die Task selbst enthält keine Programmlogik, sondern steuert deren Ausführung.
+
+\subsubsection*{Programm-Organisationseinheiten (POE)}
+
+POEs sind die eigentlichen Träger der Programmlogik.
+Die IEC 61131-3 unterscheidet drei POE-Typen:
+
+\begin{itemize}
+    \item Programme
+    \item Funktionsbausteine
+    \item Funktionen
+\end{itemize}
+
+\paragraph{Programme}
+Programme besitzen kein eigenes Gedächtnis über mehrere Aufrufe hinaus.
+Sie werden einer Task zugeordnet und zyklisch oder ereignisgesteuert ausgeführt.
+
+\paragraph{Funktionsbausteine}
+Funktionsbausteine besitzen ein internes Gedächtnis.
+Sie werden über Instanzen aufgerufen und eignen sich zur Abbildung
+zustandsbehafteter Funktionen.
+
+\paragraph{Funktionen}
+Funktionen besitzen kein Gedächtnis.
+Sie liefern bei gleichen Eingängen immer gleiche Ausgänge
+und eignen sich für Berechnungen und logische Verknüpfungen.
+
+\subsection*{Aufrufhierarchie von POEs}
+
+POEs können sich gegenseitig aufrufen, jedoch gelten folgende Regeln:
+
+\begin{itemize}
+    \item Rekursive Aufrufe sind nicht erlaubt
+    \item Programme dürfen Funktionen und Funktionsbausteine aufrufen
+    \item Funktionsbausteine dürfen Funktionen und Funktionsbausteine aufrufen
+    \item Funktionen dürfen ausschließlich Funktionen aufrufen
+\end{itemize}
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Funktionen haben kein Gedächtnis – daher dürfen sie keine
+Funktionsbausteine oder Programme aufrufen.}
+
+\subsection*{Zyklisches Abarbeitungsmodell}
+
+Die Programmausführung einer SPS erfolgt typischerweise zyklisch:
+
+\begin{enumerate}
+    \item Einlesen der Eingänge
+    \item Programmausführung
+    \item Schreiben der Ausgänge
+\end{enumerate}
+
+Dieses Modell gewährleistet deterministisches Verhalten
+und ist Grundlage für die zeitliche Bewertung von Steuerungsprogrammen.
+
+\subsection*{Variablen und Sichtbarkeit}
+
+In POEs können Variablen unterschiedlicher Sichtbarkeit verwendet werden:
+
+\begin{itemize}
+    \item Lokale Variablen: nur innerhalb der POE sichtbar
+    \item Globale Variablen: im gesamten Projekt sichtbar
+\end{itemize}
+
+Globale Variablen ermöglichen die Kommunikation zwischen Programmen,
+bergen jedoch die Gefahr unübersichtlicher Abhängigkeiten.
+
+\subsection*{Zusammenfassung}
+
+Die IEC 61131-3 stellt ein einheitliches Modell zur Verfügung, um
+Steuerungsprogramme strukturiert, wartbar und normkonform zu erstellen.
+Die Wahl der Programmiersprache richtet sich nach der Aufgabenstellung,
+der Komplexität und den Anforderungen an Übersichtlichkeit und Wartbarkeit.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/AWL.tex}
+\input{chapters/ST.tex}
+\input{chapters/FBS.tex}
+\input{chapters/KOP.tex}
+\input{chapters/AS.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Vergleich der Programmiersprachen anhand von Hochsprachenstrukturen}
+
+In diesem Abschnitt werden typische Hochsprachenstrukturen
+systematisch den IEC~61131-3-Sprachen gegenübergestellt.
+Dadurch wird klar ersichtlich, welche Sprachmittel sich für
+welche Aufgaben eignen.
+
+\subsubsection{IF -- THEN -- ELSE -- ELSIF}
+
+\paragraph{Struktur}
+\begin{verbatim}
+IF cond1 THEN
+    x := 1;
+ELSIF cond2 THEN
+    x := 2;
+ELSE
+    x := 0;
+END_IF;
+\end{verbatim}
+
+\paragraph{ST}
+\begin{verbatim}
+IF cond1 THEN
+    x := 1;
+ELSIF cond2 THEN
+    x := 2;
+ELSE
+    x := 0;
+END_IF;
+\end{verbatim}
+
+\paragraph{AWL}
+\begin{verbatim}
+LD   cond1
+JMPC L1
+LD   cond2
+JMPC L2
+LD   0
+ST   x
+JMP  L_END
+L1: LD 1
+    ST x
+    JMP L_END
+L2: LD 2
+    ST x
+L_END:
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Mehrere Netzwerke
+    \item Parallele Zweige mit Verriegelung
+    \item ELSE-Zweig über negierte Bedingungen
+\end{itemize}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item Vergleichsblöcke (GT, EQ, LT)
+    \item MUX- oder SELECT-Baustein
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Alternative Transitionen
+    \item Je ein Schritt pro IF-Zweig
+\end{itemize}
+
+---
+
+\subsubsection{CASE}
+
+\paragraph{Struktur}
+\begin{verbatim}
+CASE state OF
+    0: x := 0;
+    1: x := 10;
+    2: x := 20;
+ELSE
+    x := -1;
+END_CASE;
+\end{verbatim}
+
+\paragraph{ST}
+\begin{verbatim}
+CASE state OF
+    0: x := 0;
+    1: x := 10;
+    2: x := 20;
+ELSE
+    x := -1;
+END_CASE;
+\end{verbatim}
+
+\paragraph{AWL}
+\begin{verbatim}
+LD state
+EQ 0
+JMPC S0
+LD state
+EQ 1
+JMPC S1
+LD state
+EQ 2
+JMPC S2
+LD -1
+ST x
+JMP END
+S0: LD 0
+    ST x
+    JMP END
+S1: LD 10
+    ST x
+    JMP END
+S2: LD 20
+    ST x
+END:
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Parallele Vergleichsnetzwerke
+    \item Gegenseitige Verriegelung notwendig
+\end{itemize}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item MUX-Baustein
+    \item state als Auswahlvariable
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Zustand entspricht direkt CASE-Wert
+\end{itemize}
+
+---
+
+\subsubsection{WHILE -- DO}
+
+\paragraph{Struktur}
+\begin{verbatim}
+WHILE x < 10 DO
+    x := x + 1;
+END_WHILE;
+\end{verbatim}
+
+\paragraph{ST}
+\begin{verbatim}
+WHILE x < 10 DO
+    x := x + 1;
+END_WHILE;
+\end{verbatim}
+
+\paragraph{AWL}
+\begin{verbatim}
+LOOP:
+LD x
+LT 10
+JMPC BODY
+JMP END
+BODY:
+LD x
+ADD 1
+ST x
+JMP LOOP
+END:
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Nicht direkt möglich
+    \item Nur über Zustandsmerker und Sprünge
+\end{itemize}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item Nicht vorgesehen
+    \item Zyklische Wiederholung über Rückkopplung
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Schleife über Rücksprung-Transition
+\end{itemize}
+
+---
+
+\subsubsection{REPEAT -- UNTIL}
+
+\paragraph{Struktur}
+\begin{verbatim}
+REPEAT
+    x := x + 1;
+UNTIL x >= 10
+END_REPEAT;
+\end{verbatim}
+
+\paragraph{ST}
+\begin{verbatim}
+REPEAT
+    x := x + 1;
+UNTIL x >= 10
+END_REPEAT;
+\end{verbatim}
+
+\paragraph{AWL}
+\begin{verbatim}
+LOOP:
+LD x
+ADD 1
+ST x
+LD x
+GE 10
+JMPC END
+JMP LOOP
+END:
+\end{verbatim}
+
+\paragraph{KOP / FBS}
+\begin{itemize}
+    \item Nur über Zustandslogik realisierbar
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Schritt bleibt aktiv bis Transition TRUE wird
+\end{itemize}
+
+---
+
+\subsubsection{FOR}
+
+\paragraph{Struktur}
+\begin{verbatim}
+FOR i := 1 TO 5 DO
+    sum := sum + i;
+END_FOR;
+\end{verbatim}
+
+\paragraph{ST}
+\begin{verbatim}
+FOR i := 1 TO 5 DO
+    sum := sum + i;
+END_FOR;
+\end{verbatim}
+
+\paragraph{AWL}
+\begin{verbatim}
+LD 1
+ST i
+LD 0
+ST sum
+LOOP:
+LD sum
+ADD i
+ST sum
+LD i
+ADD 1
+ST i
+LD i
+LE 5
+JMPC LOOP
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Sehr aufwendig
+    \item Zähler + Vergleich + Rücksprung
+\end{itemize}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item Zählerbaustein + Rückkopplung
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Schleifenstruktur mit Zählvariable
+\end{itemize}
+
+---
+
+\subsubsection{Zusammenfassender Vergleich}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Struktur} & \textbf{ST} & \textbf{AWL} & \textbf{KOP} & \textbf{FBS} & \textbf{SFC} \\ \hline
+IF / ELSE & sehr gut & möglich & umständlich & gut & gut \\ \hline
+CASE & sehr gut & aufwendig & schlecht & sehr gut & sehr gut \\ \hline
+WHILE & gut & möglich & nein & nein & gut \\ \hline
+REPEAT & gut & möglich & nein & nein & gut \\ \hline
+FOR & sehr gut & möglich & schlecht & schlecht & gut \\ \hline
+\end{tabular}
+\end{center}
+
+\medskip
+\textbf{Merksatz:}  
+\emph{ST ist die einzige Sprache, die Hochsprachenstrukturen direkt und sauber abbildet.
+KOP und FBS benötigen Zustands- und Speicherlogik, SFC bildet Abläufe strukturell ab.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Umsetzungsmuster}
+
+In diesem Abschnitt werden typische Hochsprachenkonzepte
+auf ihre praktische Umsetzung in den IEC~61131-3-Sprachen abgebildet.
+Der Schwerpunkt liegt auf wiederkehrenden Mustern
+für binäre Logik, Ablaufsteuerungen und Speicherwirkungen.
+
+\subsubsection{Bedingte Logik (IF-Struktur)}
+
+\paragraph{Ziel}
+Ausführung einer Aktion nur bei erfüllter Bedingung.
+
+\paragraph{ST}
+\begin{verbatim}
+IF cond THEN
+    y := TRUE;
+ELSE
+    y := FALSE;
+END_IF;
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Schließerkontakt \texttt{cond}
+    \item Normale Spule \texttt{y}
+\end{itemize}
+
+\paragraph{AWL}
+\begin{verbatim}
+LD  cond
+ST  y
+\end{verbatim}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item Vergleichs- oder BOOL-Signal
+    \item Direkt auf Ausgang verschaltet
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Transition = Bedingung
+    \item Aktion im Folgeschritt
+\end{itemize}
+
+---
+
+\subsubsection{Speicher (Selbsthaltung)}
+
+\paragraph{Ziel}
+Zustand soll erhalten bleiben, auch wenn Bedingung nicht mehr anliegt.
+
+\paragraph{ST}
+\begin{verbatim}
+IF set THEN
+    mem := TRUE;
+ELSIF reset THEN
+    mem := FALSE;
+END_IF;
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Setzspule (S)
+    \item Rücksetzspule (R)
+\end{itemize}
+
+\paragraph{AWL}
+\begin{verbatim}
+LD   set
+JMPC SET
+LD   reset
+JMPC RESET
+JMP  END
+SET:   LD TRUE
+       ST mem
+       JMP END
+RESET: LD FALSE
+       ST mem
+END:
+\end{verbatim}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item RS- oder SR-Flipflop-Baustein
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Schritt selbst repräsentiert den Speicher
+\end{itemize}
+
+---
+
+\subsubsection{Flankenerkennung}
+
+\paragraph{Ziel}
+Aktion soll nur bei Zustandsänderung ausgelöst werden.
+
+\paragraph{ST}
+\begin{verbatim}
+edge := signal AND NOT signal_old;
+signal_old := signal;
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Positiver oder negativer Flankenkontakt
+\end{itemize}
+
+\paragraph{AWL}
+\begin{verbatim}
+LD   signal
+ANDN signal_old
+ST   edge
+LD   signal
+ST   signal_old
+\end{verbatim}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item Flankenbaustein (\texttt{R\_TRIG} / \texttt{F\_TRIG})
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Transition mit Flankenbedingung
+\end{itemize}
+
+---
+
+\subsubsection{Zähler}
+
+\paragraph{Ziel}
+Ereignisse zählen und auswerten.
+
+\paragraph{ST}
+\begin{verbatim}
+IF edge THEN
+    cnt := cnt + 1;
+END_IF;
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Zählerbaustein (CTU, CTD)
+\end{itemize}
+
+\paragraph{AWL}
+\begin{verbatim}
+LD edge
+JMPC INC
+JMP END
+INC:
+LD cnt
+ADD 1
+ST cnt
+END:
+\end{verbatim}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item CTU / CTD / CTUD
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Zähler in Aktionen
+\end{itemize}
+
+---
+
+\subsubsection{Zeitverhalten}
+
+\paragraph{Ziel}
+Zeitabhängige Steuerung.
+
+\paragraph{ST}
+\begin{verbatim}
+ton(IN := start, PT := T#5s);
+done := ton.Q;
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Zeitrelais (TON, TOF, TP)
+\end{itemize}
+
+\paragraph{AWL}
+\begin{verbatim}
+LD start
+TON t1, PT := T#5s
+\end{verbatim}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item Timer-Funktionsbausteine
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Zeitqualifier (L, D)
+\end{itemize}
+
+---
+
+\subsubsection{Ablaufsteuerung}
+
+\paragraph{Ziel}
+Mehrere Schritte in definierter Reihenfolge.
+
+\paragraph{ST}
+\begin{verbatim}
+CASE state OF
+    0: state := 1;
+    1: state := 2;
+END_CASE;
+\end{verbatim}
+
+\paragraph{KOP}
+\begin{itemize}
+    \item Zustandsmerker
+    \item Verriegelte Netzwerke
+\end{itemize}
+
+\paragraph{AWL}
+\begin{itemize}
+    \item Sprungmarken
+    \item Zustandsvariable
+\end{itemize}
+
+\paragraph{FBS}
+\begin{itemize}
+    \item Zustandsvariable + Logik
+\end{itemize}
+
+\paragraph{SFC}
+\begin{itemize}
+    \item Natürliche Abbildung (Schritte/Transitionen)
+\end{itemize}
+
+---
+
+\subsubsection{Zusammenfassung der Umsetzungsmuster}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Muster} & \textbf{ST} & \textbf{AWL} & \textbf{KOP} & \textbf{FBS} & \textbf{SFC} \\ \hline
+IF / Bedingung & sehr gut & gut & sehr gut & gut & gut \\ \hline
+Speicher & gut & gut & sehr gut & sehr gut & sehr gut \\ \hline
+Flanke & gut & gut & sehr gut & sehr gut & gut \\ \hline
+Zähler & gut & gut & sehr gut & sehr gut & gut \\ \hline
+Zeit & sehr gut & gut & sehr gut & sehr gut & sehr gut \\ \hline
+Ablauf & gut & gut & mittel & mittel & sehr gut \\ \hline
+\end{tabular}
+\end{center}
+
+\medskip
+\textbf{Merksatz:}  
+\emph{ST bildet Logik und Algorithmen ab,
+KOP/FBS bilden Signale ab,
+SFC bildet Abläufe ab.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

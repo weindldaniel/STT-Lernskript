@@ -1,0 +1,205 @@
+\newpage
+\subsection{KOP}
+
+\subsubsection{Grundprinzip}
+
+Der Kontaktplan (KOP, engl. Ladder Diagram – LD) ist eine grafische
+Programmiersprache nach IEC~61131-3.
+Er lehnt sich an die Darstellung klassischer Stromlaufpläne an
+und kann als um 90° gegen den Uhrzeigersinn gedrehter Stromlaufplan
+interpretiert werden.
+
+Eine KOP-Zeile (horizontal) entspricht einem Strompfad (vertikal)
+im elektrischen Stromlaufplan.
+
+\begin{itemize}
+    \item Sehr gut lesbar für Elektrotechniker
+    \item Besonders geeignet für binäre Logik
+    \item Weit verbreitet im industriellen Umfeld
+\end{itemize}
+
+\subsubsection{Virtueller Stromfluss}
+
+Im KOP existiert kein realer Strom, sondern ein \textbf{virtueller Stromfluss}.
+Dieser fließt:
+\begin{itemize}
+    \item immer von links nach rechts
+    \item innerhalb eines Netzwerks
+\end{itemize}
+
+Der virtuelle Stromfluss repräsentiert den logischen Zustand TRUE.
+
+\subsubsection{Struktur eines KOP-Netzwerks}
+
+Ein KOP-Programm besteht aus mehreren Netzwerken.
+Jedes Netzwerk wird separat ausgewertet.
+
+\paragraph{Linke Stromschiene}
+Die linke Stromschiene liefert den logischen Wert TRUE
+und ist Startpunkt jedes Netzwerks.
+
+\paragraph{Rechte Stromschiene}
+Die rechte Stromschiene schließt das Netzwerk ab.
+
+\paragraph{Horizontale Linien}
+Horizontale Linien übertragen den logischen Zustand
+von einem Element zum nächsten.
+
+\paragraph{Vertikale Linien}
+Vertikale Linien verbinden mehrere horizontale Linien
+und implizieren eine logische ODER-Verknüpfung.
+
+\subsubsection{Berechnungsteil und Zuweisungsteil}
+
+Ein KOP-Netzwerk lässt sich logisch in zwei Bereiche gliedern:
+\begin{itemize}
+    \item \textbf{Berechnungsteil (links)}:  
+    Kontakte lesen Variablen und verknüpfen sie logisch.
+    
+    \item \textbf{Zuweisungsteil (rechts)}:  
+    Spulen weisen den berechneten Wert einer Variablen zu.
+\end{itemize}
+
+\subsubsection{Kontakte}
+
+Kontakte lesen den Wert einer Variablen
+und beeinflussen den virtuellen Stromfluss.
+Der Wert der Variablen wird durch Kontakte \textbf{nicht verändert}.
+
+\paragraph{Schließer (NO)}
+Der Kontakt leitet Strom, wenn die Variable TRUE ist.
+
+Logisch:
+\[
+Rechts := Links \land Var
+\]
+
+\paragraph{Öffner (NC)}
+Der Kontakt invertiert den Variablenwert.
+
+Logisch:
+\[
+Rechts := Links \land \lnot Var
+\]
+
+\subsubsection{Flankenkontakte}
+
+Flankenkontakte liefern TRUE nur für einen SPS-Zyklus
+bei einer Zustandsänderung der Variable.
+
+\paragraph{Positive Flanke}
+TRUE bei Übergang von FALSE auf TRUE.
+
+\paragraph{Negative Flanke}
+TRUE bei Übergang von TRUE auf FALSE.
+
+\paragraph{Positive und negative Flanke}
+TRUE bei jeder Zustandsänderung.
+
+Flankenkontakte werden häufig zum Zählen,
+Setzen oder Rücksetzen verwendet.
+
+\subsubsection{Spulen}
+
+Spulen weisen den Wert des virtuellen Stromflusses
+einer Variablen zu.
+
+\paragraph{Normale Spule}
+\[
+Var := Links
+\]
+
+\paragraph{Negierte Spule}
+\[
+Var := \lnot Links
+\]
+
+\subsubsection{Setz- und Rücksetzspulen}
+
+\paragraph{Setzspule (S)}
+Setzt eine Variable auf TRUE,
+solange der virtuelle Stromfluss anliegt.
+Der Zustand bleibt gespeichert,
+bis eine Rücksetzspule aktiv wird.
+
+\paragraph{Rücksetzspule (R)}
+Setzt eine Variable auf FALSE,
+solange der virtuelle Stromfluss anliegt.
+
+Setz- und Rücksetzspulen realisieren Speicherwirkung
+und sind Grundlage für Ablaufsteuerungen.
+
+\subsubsection{Flankenspulen}
+
+\paragraph{Positive Flankenspule}
+Setzt die Variable für genau einen Zyklus auf TRUE,
+wenn eine positive Flanke am Eingang auftritt.
+
+\paragraph{Negative Flankenspule}
+Setzt die Variable für genau einen Zyklus auf TRUE,
+wenn eine negative Flanke am Eingang auftritt.
+
+\paragraph{Beide Flanken}
+Reagiert auf jede Zustandsänderung.
+
+\subsubsection{Ausführungsreihenfolge}
+
+\begin{itemize}
+    \item Der Signalfluss innerhalb eines Netzwerks erfolgt von links nach rechts
+    \item Netzwerke werden von oben nach unten abgearbeitet
+    \item Kleinere Netzwerknummern vor größeren
+\end{itemize}
+
+Explizite Rückkopplungen innerhalb eines Netzwerks
+sind nicht erlaubt und werden als Kurzschluss abgelehnt.
+
+Implizite Rückkopplungen sind über Variablen
+im nächsten SPS-Zyklus möglich.
+
+\subsubsection{Programmflusssteuerung}
+
+KOP erlaubt die Beeinflussung der Programmausführung durch:
+\begin{itemize}
+    \item Bedingte Sprünge
+    \item Unbedingte Sprünge
+    \item RETURN (Verlassen der POE)
+\end{itemize}
+
+Sprünge können auf Netzwerknummern oder Labels erfolgen.
+
+\subsubsection{Verwendung von Funktionen und Funktionsbausteinen}
+
+In KOP können Funktionen und Funktionsbausteine verwendet werden.
+
+\begin{itemize}
+    \item Funktionsbausteine benötigen Instanzen
+    \item Funktionen besitzen kein Gedächtnis
+    \item Analoge Werte nur über Block-Ein- und Ausgänge
+\end{itemize}
+
+Analoge Werte können nicht über Kontakte verarbeitet werden.
+
+\subsubsection{Vor- und Nachteile von KOP}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item Sehr übersichtlich für binäre Logik
+    \item Gute Diagnose durch Anzeige des Stromflusses
+    \item Einfache Übertragung von Relaissteuerungen
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Numerische Logik nur über Bausteine
+    \item Zeichen- und Stringverarbeitung umständlich
+    \item Komplexe Algorithmen schwer darstellbar
+\end{itemize}
+
+\subsubsection{Einordnung}
+
+KOP eignet sich besonders für:
+\begin{itemize}
+    \item Binäre Steuerungslogik
+    \item Verriegelungen
+    \item Klassische Maschinensteuerungen
+\end{itemize}
