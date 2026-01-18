@@ -58,6 +58,13 @@ Kennzeichnend ist der \textbf{geschlossene Wirkungsablauf (Rückkopplung)}.
     Beispiel: Drehzahlregelung eines Motors.
 \end{itemize}
 
+ 
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=12,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k01-Einführung-4v3-Folien_011025.pdf}    
+ \end{figure}
+
+
 \subsection{Grundstruktur eines Steuerungssystems}
 
 Ein Steuerungssystem besteht grundsätzlich aus:
@@ -163,8 +170,6 @@ Mechanische Steuerungen sind historisch bedeutsam,
 werden heute jedoch kaum noch neu eingesetzt,
 da Änderungen nur mechanisch möglich sind.
 
----
-
 \subsubsection{Pneumatische Steuerungen}
 
 Pneumatische Steuerungen nutzen Druckluft
@@ -197,7 +202,7 @@ Pneumatische Steuerungen werden heute meist
 in Kombination mit SPS eingesetzt
 (SPS steuert Ventile, Pneumatik führt aus).
 
----
+ 
 
 \subsubsection{Hydraulische Steuerungen}
 
@@ -232,7 +237,7 @@ Hydraulische Steuerungen sind heute
 meist Teil der Steuerstrecke,
 während die Steuerlogik elektrisch oder per SPS realisiert wird.
 
----
+ 
 
 \subsubsection{Elektrische Steuerungen}
 
@@ -266,7 +271,7 @@ Elektrische Steuerungen sind die direkte
 \textbf{Vorgänger-Technologie der SPS}
 und Grundlage für KOP-Darstellungen.
 
----
+ 
 
 \subsubsection{Elektronische Steuerungen}
 
@@ -329,11 +334,11 @@ Eine SPS besteht aus folgenden grundlegenden Elementen:
     Versorgt CPU und Baugruppen mit der erforderlichen Betriebsspannung
     (typisch 24\,V DC).
 
-    \item \textbf{Eingabebaugruppen}  
+    \item \textbf{Eingangskarte}  
     Erfassen binäre oder analoge Signale aus der Feldebene
     (Sensoren).
 
-    \item \textbf{Ausgabebaugruppen}  
+    \item \textbf{Ausgangskarte}  
     Stellen binäre oder analoge Signale zur Ansteuerung von Aktoren bereit.
 
     \item \textbf{Kommunikationsbaugruppen}  
@@ -346,53 +351,102 @@ Eine SPS besteht aus folgenden grundlegenden Elementen:
 
 \subsubsection{Baugruppen einer SPS}
 
-\paragraph{Digitale Eingabebaugruppen}
+\paragraph{Digitale Eingangskarte}
 \begin{itemize}
     \item Erfassen binäre Zustände (0/1)
     \item Typische Signale: Schalter, Taster, Endschalter
     \item Galvanische Trennung zur Feldebene
 \end{itemize}
 
-\paragraph{Digitale Ausgabebaugruppen}
+\paragraph{Digitale Ausgangskarte}
 \begin{itemize}
     \item Schalten binäre Lasten
     \item Typisch: Relais-, Transistor- oder Triac-Ausgänge
 \end{itemize}
 
-\paragraph{Analoge Eingabebaugruppen}
+\paragraph{Analoge Eingangskarte}
 \begin{itemize}
     \item Erfassen kontinuierliche Messwerte
     \item Typische Signale: 0–10\,V, 4–20\,mA
 \end{itemize}
 
-\paragraph{Analoge Ausgabebaugruppen}
+\paragraph{Analoge Ausgangskarte}
 \begin{itemize}
     \item Geben kontinuierliche Stellgrößen aus
     \item Ansteuerung von Frequenzumrichtern, Ventilen, Reglern
 \end{itemize}
 
-\subsubsection{Aufbauarten von SPS-Systemen}
+\subsubsection{Aufbauarten von SPS}
+
+Speicherprogrammierbare Steuerungen lassen sich
+nach ihrem konstruktiven Aufbau
+in verschiedene Aufbauarten einteilen.
+Diese unterscheiden sich insbesondere hinsichtlich
+Leistungsfähigkeit, Erweiterbarkeit und Einsatzgebiet.
+
+\paragraph{Nano-SPS}
+
+Nano-SPS sind sehr kompakte Steuerungen
+mit fest integrierten Ein- und Ausgängen.
+Sie besitzen nur eine geringe Rechenleistung
+und eingeschränkte Programmiermöglichkeiten.
+Typische Einsatzgebiete sind einfache Steuerungsaufgaben,
+Gebäudetechnik sowie Ausbildungs- und Übungszwecke.
 
 \paragraph{Kompakt-SPS}
-\begin{itemize}
-    \item CPU, E/A und Netzteil in einem Gehäuse
-    \item Begrenzte Erweiterbarkeit
-    \item Kostengünstig
-\end{itemize}
 
-\paragraph{Modulare SPS}
-\begin{itemize}
-    \item CPU und Baugruppen steckbar
-    \item Hohe Flexibilität und Erweiterbarkeit
-    \item Industriestandard für mittlere und große Anlagen
-\end{itemize}
+Bei Kompakt-SPS sind CPU, Netzteil
+und Ein-/Ausgabebaugruppen
+in einem gemeinsamen Gehäuse integriert.
+Eine Erweiterung ist nur eingeschränkt möglich.
+Kompakt-SPS werden häufig in kleinen bis mittleren Maschinen eingesetzt.
 
-\paragraph{Dezentrale SPS / verteilte I/O}
-\begin{itemize}
-    \item E/A-Module nahe am Prozess
-    \item Kommunikation über Feldbus
-    \item Reduzierter Verdrahtungsaufwand
-\end{itemize}
+\paragraph{Mini-SPS}
+
+Mini-SPS stellen eine leistungsstärkere Form
+kompakter Steuerungen dar.
+Sie verfügen über größere Programmspeicher
+und erweiterte Kommunikationsmöglichkeiten.
+Der Einsatz erfolgt typischerweise
+in mittleren Automatisierungsanlagen.
+
+\paragraph{Rackbasierte Klein-SPS}
+
+Rackbasierte Klein-SPS sind modular aufgebaute Systeme,
+bei denen CPU und Baugruppen
+in einem gemeinsamen Rack angeordnet sind.
+Die Kommunikation erfolgt über einen Rückwandbus.
+Diese Aufbauart bietet eine gute Flexibilität
+bei gleichzeitig kompakter Bauweise.
+
+\paragraph{Rackbasierte SPS}
+
+Rackbasierte SPS stellen die leistungsfähigste
+klassische Aufbauart dar.
+Sie bestehen aus einer CPU
+und frei kombinierbaren Baugruppen
+für Ein-/Ausgänge, Kommunikation und Spezialfunktionen.
+Sie werden in komplexen Maschinen
+und großen Industrieanlagen eingesetzt.
+
+\paragraph{Soft-SPS}
+
+Eine Soft-SPS ist eine softwarebasierte Steuerung,
+die auf einem Industrie-PC oder Standard-PC läuft.
+Die Anbindung der Peripherie erfolgt
+über Feldbusse oder dezentrale I/O-Systeme.
+Soft-SPS ermöglichen die Kombination
+von Steuerung, Visualisierung und Datenverarbeitung
+auf einer Plattform.
+
+\medskip
+\textbf{Merksatz:}  
+\emph{Die Aufbauart bestimmt Flexibilität,
+Leistungsfähigkeit und Einsatzbereich einer SPS.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=84,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k01-Einführung-4v3-Folien_011025.pdf}    
+\end{figure}
 
 \subsubsection{Eigenschaften von SPS}
 
@@ -457,6 +511,12 @@ in einem gemeinsamen Schaltschrank.
     \item Kompakte Anlagen
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=86,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k01-Einführung-4v3-Folien_011025.pdf}    
+\end{figure}
+
+
 \subsubsection{Dezentrale Steuerungen}
 
 Bei dezentralen Steuerungen werden
@@ -491,6 +551,12 @@ erfolgt über Feldbussysteme.
     \item Modulare Maschinenkonzepte
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=87,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k01-Einführung-4v3-Folien_011025.pdf}    
+\end{figure}
+
+
 \subsubsection{Vergleich zentrale vs. dezentrale Steuerung}
 
 \begin{center}
@@ -508,6 +574,13 @@ Typische Größe & klein/mittel & mittel/groß \\ \hline
 \textbf{Merksatz:}  
 \emph{Zentrale Steuerungen sind übersichtlich,
 dezentrale Steuerungen sind flexibel und skalierbar.}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=88,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k01-Einführung-4v3-Folien_011025.pdf}    
+\end{figure}
+
+
 
 \subsection{Zuordnungstabelle}
 \begin{itemize}
