@@ -16,10 +16,12 @@ Automatisierungssoftware.
 
 Die IEC 61131-3 definiert fünf standardisierte Programmiersprachen:
 
+\vspace{0.5cm}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Bilder/Programmiersprachen.png}
+    \includegraphics[width=\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Bilder/Programmiersprachen.png}
 \end{figure}
+\vspace{0.5cm}
 
 \renewcommand{\arraystretch}{1.3} % größerer Zeilenabstand
 \begin{center}
@@ -40,85 +42,7 @@ Die Sprachen lassen sich in zwei Gruppen einteilen:
     \item \textbf{grafische Sprachen}: KOP, FBS, AS
 \end{itemize}
 
-\subsection*{Softwaremodell einer SPS}
-
-Nach IEC 61131-3 ist die Software einer SPS hierarchisch aufgebaut.
-Diese Hierarchie dient der Strukturierung, Wiederverwendbarkeit und Wartbarkeit.
-
-\subsubsection*{Konfiguration}
-
-Die Konfiguration bildet die oberste Ebene des Softwaremodells.
-Sie entspricht einem vollständigen SPS-System und kann eine oder mehrere
-Ressourcen enthalten.
-
-In komplexen Anlagen können mehrere Konfigurationen existieren,
-die miteinander kommunizieren.
-
-\subsubsection*{Ressource}
-
-Eine Ressource ist einer Konfiguration untergeordnet und umfasst typischerweise
-eine CPU eines SPS-Systems.
-
-Jede Ressource enthält:
-\begin{itemize}
-    \item Tasks
-    \item Programm-Organisationseinheiten (POEs)
-\end{itemize}
-
-\subsubsection*{Task}
-
-Eine Task definiert die \textbf{Abarbeitungseigenschaften} von Programmen.
-Sie legt fest:
-\begin{itemize}
-    \item Art der Ausführung (zyklisch, ereignisgesteuert)
-    \item Zykluszeit
-    \item Priorität
-\end{itemize}
-
-Die Task selbst enthält keine Programmlogik, sondern steuert deren Ausführung.
-
-\subsubsection*{Programm-Organisationseinheiten (POE)}
-
-POEs sind die eigentlichen Träger der Programmlogik.
-Die IEC 61131-3 unterscheidet drei POE-Typen:
-
-\begin{itemize}
-    \item Programme
-    \item Funktionsbausteine
-    \item Funktionen
-\end{itemize}
-
-\paragraph{Programme}
-Programme besitzen kein eigenes Gedächtnis über mehrere Aufrufe hinaus.
-Sie werden einer Task zugeordnet und zyklisch oder ereignisgesteuert ausgeführt.
-
-\paragraph{Funktionsbausteine}
-Funktionsbausteine besitzen ein internes Gedächtnis.
-Sie werden über Instanzen aufgerufen und eignen sich zur Abbildung
-zustandsbehafteter Funktionen.
-
-\paragraph{Funktionen}
-Funktionen besitzen kein Gedächtnis.
-Sie liefern bei gleichen Eingängen immer gleiche Ausgänge
-und eignen sich für Berechnungen und logische Verknüpfungen.
-
-\subsection*{Aufrufhierarchie von POEs}
-
-POEs können sich gegenseitig aufrufen, jedoch gelten folgende Regeln:
-
-\begin{itemize}
-    \item Rekursive Aufrufe sind nicht erlaubt
-    \item Programme dürfen Funktionen und Funktionsbausteine aufrufen
-    \item Funktionsbausteine dürfen Funktionen und Funktionsbausteine aufrufen
-    \item Funktionen dürfen ausschließlich Funktionen aufrufen
-\end{itemize}
-
-\medskip
-\textbf{Merksatz:}  
-\emph{Funktionen haben kein Gedächtnis – daher dürfen sie keine
-Funktionsbausteine oder Programme aufrufen.}
-
-\subsection*{Zyklisches Abarbeitungsmodell}
+ \subsection*{Zyklisches Abarbeitungsmodell}
 
 Die Programmausführung einer SPS erfolgt typischerweise zyklisch:
 
@@ -429,6 +353,10 @@ JMPC LOOP
     \item Sehr aufwendig
     \item Zähler + Vergleich + Rücksprung
 \end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=61,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
 
 \paragraph{FBS}
 \begin{itemize}
@@ -460,6 +388,13 @@ FOR & sehr gut & möglich & schlecht & schlecht & gut \\ \hline
 \textbf{Merksatz:}  
 \emph{ST ist die einzige Sprache, die Hochsprachenstrukturen direkt und sauber abbildet.
 KOP und FBS benötigen Zustands- und Speicherlogik, SFC bildet Abläufe strukturell ab.}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=21,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

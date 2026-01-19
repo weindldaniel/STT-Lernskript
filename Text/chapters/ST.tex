@@ -11,6 +11,12 @@ Berechnungen und strukturierte Ablaufbeschreibungen.
 
 ST ist deterministisch und zyklisch in das SPS-Abarbeitungsmodell eingebettet.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=114,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
+
 \subsubsection{Aufbau und Syntax}
 
 Ein ST-Programm besteht aus Anweisungen, die sequenziell abgearbeitet werden.
@@ -91,6 +97,10 @@ ELSE
     y := -1;
 END_IF;
 \end{verbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=123,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
 
 \paragraph{CASE}
 \begin{verbatim}
@@ -102,6 +112,14 @@ ELSE
     y := -1;
 END_CASE;
 \end{verbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=125,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=126,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
 
 \subsubsection{Schleifen}
 
@@ -130,7 +148,14 @@ FOR cnt := startVal TO endVal BY stepVal DO
     (* Anweisungen *)
 END_FOR;
 \end{verbatim}
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=129,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+Hinweis: Bei Schleifen mit unbestimmter Laufzeit (WHILE, REPEAT)
+sollte ein Zähler mit EXIT-Abbruch eingebaut werden, damit es im
+Extremfall zu keiner Zykluszeitverletzung kommt, sondern der Fehler
+programmatisch abgefangen werden kann.
 \subsubsection{Abarbeitungsverhalten der FOR-Schleife}
 
 \begin{itemize}
@@ -159,6 +184,29 @@ FOR i := 1 TO 10 DO
     END_IF;
 END_FOR;
 \end{verbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=127,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=131,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
+\subsubsection{Grundstrukturen}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=134,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=135,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=136,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
 
 \subsubsection{Determinismus und Laufzeit}
 

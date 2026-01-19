@@ -15,19 +15,15 @@ Ziel der Norm ist:
     \item klare Trennung von Konfiguration und Programm
 \end{itemize}
 
-Die IEC~61131-3 unterscheidet fünf Programmiersprachen:
-\begin{itemize}
-    \item Anweisungsliste (AWL / IL)
-    \item Strukturierter Text (ST)
-    \item Kontaktplan (KOP / LD)
-    \item Funktionsbausteinsprache (FBS / FBD)
-    \item Ablaufsprache (SFC)
-\end{itemize}
-
 Die Norm legt außerdem fest,
 wie Programme organisiert, aufgerufen und ausgeführt werden.
 
----
+\subsection{Softwarestruktur}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=6,width=\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
 
 \subsection{Konfigurationselemente}
 
@@ -64,6 +60,12 @@ Jede Ressource enthält:
     \item zugeordnete Programme
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=7,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
+
 \subsubsection{Task}
 
 Tasks steuern die zeitliche Ausführung der Programme.
@@ -81,7 +83,10 @@ Tasks enthalten selbst keine Programmlogik.
     \centering
     \includegraphics[width=0.4\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Bilder/RessourceTask.png}
 \end{figure}
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=8,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
 
 
 \subsection{Bausteine (POE – Program Organisation Elements)}
@@ -95,6 +100,11 @@ realisiert.
     \centering
     \includegraphics[width=1\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Bilder/POE.png}
 \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=9,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
 
 Die IEC~61131-3 unterscheidet drei POE-Typen.
 
@@ -144,6 +154,15 @@ Bei gleichen Eingängen liefern sie immer gleiche Ausgänge.
     \item Funktionen dürfen nur Funktionen aufrufen
     \item Rekursive Aufrufe sind nicht erlaubt
 \end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=10,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=11,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
 
 \subsection{Datentypen}
 
@@ -181,7 +200,6 @@ Beispiel:
 r := INT_TO_REAL(i);
 \end{verbatim}
 
----
 
 \subsection{Variablen}
 
@@ -203,6 +221,10 @@ für Daten innerhalb eines SPS-Programms.
     \item Ermöglichen Kommunikation zwischen Programmen
     \item Erhöhen die Kopplung
 \end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=19,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
 
 \subsubsection{Initialisierung von Variablen}
 
@@ -217,6 +239,13 @@ Initialwerte sind insbesondere für:
     \item Merker
 \end{itemize}
 relevant.
+
+\subsubsection{Deklaration eines Funktionsbausteins}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=17,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
 
 \subsection{Generische Datentypen}
 

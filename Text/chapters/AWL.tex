@@ -160,6 +160,12 @@ Sprungziele werden durch Marken (Labels) definiert.
 Sprünge ermöglichen einfache Ablaufsteuerungen,
 ersetzen jedoch keine strukturierte Ablaufbeschreibung.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=75,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
+
 \subsubsection{Kommentare}
 
 Kommentare dienen ausschließlich der Dokumentation
@@ -172,6 +178,105 @@ und haben keinen Einfluss auf die Programmausführung.
 
 In AWL sind Kommentare besonders wichtig,
 da die Lesbarkeit geringer ist als bei grafischen Sprachen.
+
+\subsubsection{Variablendeklaration in AWL}
+
+In der Anweisungsliste (AWL) werden Variablen
+nicht implizit verwendet,
+sondern müssen eindeutig deklariert
+und adressiert werden.
+Die Deklaration erfolgt abhängig vom Gültigkeitsbereich
+und vom verwendeten Bausteintyp.
+
+\paragraph{Grundprinzip}
+
+AWL arbeitet adressorientiert.
+Variablen werden entweder
+\begin{itemize}
+    \item symbolisch (über Symboltabelle)
+    \item oder absolut (über Speicheradressen)
+\end{itemize}
+angesprochen.
+
+Die eigentliche Variablendeklaration
+erfolgt in den Schnittstellen von Bausteinen
+oder in globalen Datenbereichen.
+
+\paragraph{Deklaration in Bausteinschnittstellen}
+
+In Funktionsbausteinen (FB) und Funktionen (FC)
+werden Variablen in der Bausteinschnittstelle deklariert:
+
+\begin{itemize}
+    \item \textbf{VAR\_INPUT} – Eingangsvariablen
+    \item \textbf{VAR\_OUTPUT} – Ausgangsvariablen
+    \item \textbf{VAR\_IN\_OUT} – Ein-/Ausgangsvariablen
+    \item \textbf{VAR} – statische lokale Variablen (nur FB)
+    \item \textbf{VAR\_TEMP} – temporäre lokale Variablen
+\end{itemize}
+
+\paragraph{Beispiel: Bausteinschnittstelle}
+
+\begin{verbatim}
+VAR_INPUT
+    Start : BOOL;
+END_VAR
+
+VAR_OUTPUT
+    Motor : BOOL;
+END_VAR
+
+VAR
+    Zustand : INT;
+END_VAR
+\end{verbatim}
+
+\paragraph{Adressierung in AWL}
+
+In AWL werden die deklarierten Variablen
+über ihren Namen oder ihre Adresse verwendet.
+
+Beispiele:
+\begin{itemize}
+    \item \texttt{E 0.0} – digitaler Eingang
+    \item \texttt{A 0.0} – digitaler Ausgang
+    \item \texttt{M 10.0} – Merkerbit
+    \item \texttt{DB10.DBX 0.0} – Datenbaustein, Bit
+\end{itemize}
+
+\paragraph{Beispiel: Verwendung in AWL}
+
+\begin{verbatim}
+      U     Start
+      =     Motor
+\end{verbatim}
+
+\paragraph{Globale Variablen}
+
+Globale Variablen werden typischerweise
+in Merkerbereichen oder Datenbausteinen abgelegt.
+Sie sind von mehreren Bausteinen aus zugreifbar,
+erhöhen jedoch die Kopplung des Programms.
+
+\paragraph{Besonderheiten von AWL}
+
+\begin{itemize}
+    \item Keine automatische Typprüfung zur Laufzeit
+    \item Hohe Nähe zur Hardware
+    \item Klare Trennung zwischen Deklaration und Nutzung
+\end{itemize}
+
+\medskip
+\textbf{Merksatz:}  
+\emph{In AWL wird nicht „variablenorientiert“, sondern
+adress- und bausteinorientiert programmiert.}
+
+\subsubsection{Actions}
+\begin{figure}[H]
+    \centering
+    \includegraphics[page=87,width=0.8\textwidth]{/Users/danielweindl/_source/Repositorys/STT-Lernskript/Data/sttvo-k03-Programmiersprachen-4v5-Folien.pdf}    
+ \end{figure}
+
 
 \subsubsection{Vor- und Nachteile von AWL}
 
